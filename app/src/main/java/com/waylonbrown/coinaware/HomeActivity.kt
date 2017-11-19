@@ -13,22 +13,6 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
     
-    private enum class PageType(val id: Int) {
-        HOME(R.id.navigation_home),
-        DASHBOARD(R.id.navigation_dashboard),
-        NOTIFICATIONS(R.id.navigation_notifications);
-        
-        companion object {
-            // TODO: find automatic way to do this
-            fun of(id: Int): PageType = when (id) {
-                R.id.navigation_home -> PageType.HOME
-                R.id.navigation_dashboard -> PageType.DASHBOARD
-                R.id.navigation_notifications -> PageType.NOTIFICATIONS
-                else -> PageType.HOME
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -43,6 +27,22 @@ class HomeActivity : AppCompatActivity() {
         val pageType = PageType.of(item.itemId)
         viewPager.setCurrentItem(pageType.ordinal, true)
         return true
+    }
+
+    private enum class PageType(val id: Int) {
+        HOME(R.id.navigation_home),
+        DASHBOARD(R.id.navigation_dashboard),
+        ALERTS(R.id.navigation_alerts);
+
+        companion object {
+            // TODO: find automatic way to do this
+            fun of(id: Int): PageType = when (id) {
+                R.id.navigation_home -> PageType.HOME
+                R.id.navigation_dashboard -> PageType.DASHBOARD
+                R.id.navigation_alerts -> PageType.ALERTS
+                else -> PageType.HOME
+            }
+        }
     }
 
     class HomeViewPagerAdapter(private val context: Context) : ViewPagerAdapter() {
@@ -70,7 +70,7 @@ class HomeActivity : AppCompatActivity() {
             when (position) {
                 0 -> navigation.menu.findItem(PageType.HOME.id).isChecked = true
                 1 -> navigation.menu.findItem(PageType.DASHBOARD.id).isChecked = true
-                2 -> navigation.menu.findItem(PageType.NOTIFICATIONS.id).isChecked = true
+                2 -> navigation.menu.findItem(PageType.ALERTS.id).isChecked = true
             }
         }
 
