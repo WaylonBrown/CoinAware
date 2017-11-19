@@ -11,7 +11,7 @@ def versionBuild = 0 // bump for dogfood builds, public betas, etc.
 // Duplicate dependency and tools versions
 def versions = [
         sdk: 27,
-        support: "27.0.0",
+        support: "27.0.1",
         arch: "1.0.0-rc1",
         butterknife: "8.4.0",
         retrofit: "2.1.0",
@@ -88,6 +88,7 @@ android {
         implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
         // Google
+        implementation "com.android.support:support-v4:$versions.support"
         implementation "com.android.support:appcompat-v7:$versions.support"
         implementation "com.android.support:design:$versions.support"
         implementation "com.android.support:cardview-v7:$versions.support"
