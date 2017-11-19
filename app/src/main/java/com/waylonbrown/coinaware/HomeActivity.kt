@@ -16,7 +16,17 @@ class HomeActivity : AppCompatActivity() {
     private enum class PageType(val id: Int) {
         HOME(R.id.navigation_home),
         DASHBOARD(R.id.navigation_dashboard),
-        NOTIFICATIONS(R.id.navigation_notifications)
+        NOTIFICATIONS(R.id.navigation_notifications);
+        
+        companion object {
+            // TODO: find automatic way to do this
+            fun of(id: Int): PageType = when (id) {
+                R.id.navigation_home -> PageType.HOME
+                R.id.navigation_dashboard -> PageType.DASHBOARD
+                R.id.navigation_notifications -> PageType.NOTIFICATIONS
+                else -> PageType.HOME
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,13 +40,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun navigationItemSelected(item: MenuItem): Boolean {
-        val index = when (item.itemId) {
-            R.id.navigation_home -> 0
-            R.id.navigation_dashboard -> 1
-            R.id.navigation_notifications -> 2
-            else -> return false
-        }
-        viewPager.setCurrentItem(index, true)
+        val pageType = PageType.of(item.itemId)
+        viewPager.setCurrentItem(pageType.ordinal, true)
         return true
     }
 
