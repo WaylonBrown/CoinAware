@@ -1,15 +1,18 @@
 package com.waylonbrown.coinaware
 
-import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import com.waylonbrown.coinaware.util.ViewPagerAdapter
+import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_home.*
+
 
 class HomeActivity : AppCompatActivity() {
     
@@ -17,7 +20,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         
-        viewPager.adapter = HomeViewPagerAdapter(this)
+        viewPager.adapter = HomeViewPagerAdapter(supportFragmentManager)
         viewPager.addOnPageChangeListener(HomeViewPageChangeListener(navigation))
 
         navigation.setOnNavigationItemSelectedListener({ item -> navigationItemSelected(item) })
@@ -28,33 +31,39 @@ class HomeActivity : AppCompatActivity() {
         viewPager.setCurrentItem(pageType.ordinal, true)
         return true
     }
-
+    
     private enum class PageType(val id: Int) {
         HOME(R.id.navigation_home),
         DASHBOARD(R.id.navigation_dashboard),
         ALERTS(R.id.navigation_alerts);
 
         companion object {
-            // TODO: find automatic way to do this
-            fun of(id: Int): PageType = when (id) {
-                R.id.navigation_home -> PageType.HOME
-                R.id.navigation_dashboard -> PageType.DASHBOARD
-                R.id.navigation_alerts -> PageType.ALERTS
-                else -> PageType.HOME
+            // Given an id, get the enum type
+            fun of(id: Int): PageType {
+                PageType.values()
+                        .filter { it.id == id }
+                        .forEach { return it }
+                return HOME
             }
         }
     }
-
-    class HomeViewPagerAdapter(private val context: Context) : ViewPagerAdapter() {
+    
+    class HomeViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         
-        override fun getView(position: Int, pager: ViewPager): View {
-            val layoutInflator = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) 
-                    as LayoutInflater
-            return layoutInflator.inflate(R.layout.view_pager_page, null)
+        override fun getItem(position: Int): Fragment {
+            return PortfolioFragment()
         }
 
         override fun getCount(): Int = PageType.values().size
 
+    }
+    
+    class PortfolioFragment : Fragment() {
+        
+        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+            return inflater.inflate(R.layout.portfolio_page, container, false)
+        }
+        
     }
     
     // TODO: is navigation here a memory leak?
