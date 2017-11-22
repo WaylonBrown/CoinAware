@@ -1,9 +1,11 @@
 package com.waylonbrown.coinaware
 
 import android.support.v7.widget.RecyclerView
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
 import com.waylonbrown.coinaware.DummyDataProvider.DummyHeaderListData
 import com.waylonbrown.coinaware.PortfolioAdapter.PortfolioHeaderViewHolder.ListItemClickedListener
@@ -91,6 +93,9 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
             // TODO: android extensions
             val chart = itemView.findViewById<LineChart>(R.id.chart)
             PortfolioChartConfig(itemView.context, chart, item, false).apply()
+            
+            val coinHoldings = itemView.findViewById<TextView>(R.id.coinHoldings)
+            coinHoldings.setText(Html.fromHtml("3.924 ETH = <b>$1323.12</b>"))
 
             chart.invalidate()
         }
