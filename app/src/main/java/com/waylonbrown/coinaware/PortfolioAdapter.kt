@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.mikephil.charting.charts.LineChart
+import com.waylonbrown.coinaware.DummyDataProvider.DummyHeaderListData
 import com.waylonbrown.coinaware.PortfolioAdapter.PortfolioHeaderViewHolder
 import com.waylonbrown.coinaware.PortfolioAdapter.PortfolioHeaderViewHolder.ListItemClickedListener
 
@@ -67,7 +68,7 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
             
             // TODO: android extensions
             val chart = itemView.findViewById<LineChart>(R.id.chart)
-            PortfolioChartConfig(chart, item).apply()
+            PortfolioChartConfig(itemView.context, chart, item).apply()
             
             chart.invalidate()
         }
