@@ -6,8 +6,15 @@ class DummyDataProvider {
     
     data class DummyHeaderListData(val data: List<Entry>)
     
-    fun getDummyHeaderData(): DummyHeaderListData {
-        return DummyHeaderListData(getDummyChartData())
+    fun getDummyHeaderData(): Set<DummyHeaderListData> {
+        val dataSet = mutableSetOf<DummyHeaderListData>()
+        dataSet.add(DummyHeaderListData(getDummyChartData()))
+        dataSet.add(DummyHeaderListData(getDummyChartData()))
+        dataSet.add(DummyHeaderListData(getDummyChartData()))
+        dataSet.add(DummyHeaderListData(getDummyChartData()))
+        dataSet.add(DummyHeaderListData(getDummyChartData()))
+        dataSet.add(DummyHeaderListData(getDummyChartData()))
+        return dataSet
     }
 
     private fun getDummyChartData(): List<Entry> {

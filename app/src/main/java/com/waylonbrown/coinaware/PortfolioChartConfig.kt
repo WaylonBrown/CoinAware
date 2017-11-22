@@ -21,7 +21,7 @@ class PortfolioChartConfig(val context: Context,
         chart.description = null
         chart.isAutoScaleMinMaxEnabled = true
         chart.setDrawBorders(false)
-        chart.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.card_background_gradient))
+        chart.setBackgroundColor(backgroundColor)
 
         val dataSet = LineDataSet(item.data, "Data set test")
         dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
@@ -42,6 +42,7 @@ class PortfolioChartConfig(val context: Context,
         yAxisLeft.setDrawZeroLine(false)
 
         val yAxisRight = chart.axisRight
+        yAxisRight.textColor = ContextCompat.getColor(context, R.color.white)
         yAxisRight.setDrawGridLines(false)
         yAxisRight.setDrawZeroLine(false)
         yAxisRight.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
