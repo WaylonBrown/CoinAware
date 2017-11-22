@@ -11,10 +11,15 @@ import java.text.DecimalFormat
 
 class PortfolioChartConfig(val context: Context,
                            val chart: LineChart,
-                           val item: DummyHeaderListData) {
+                           val item: DummyHeaderListData,
+                           val isHeader: Boolean) {
     
     fun apply() {
-        val backgroundColor = ContextCompat.getColor(context, R.color.colorPrimary)
+        val backgroundColor = when {
+            isHeader -> ContextCompat.getColor(context, R.color.colorPrimary)
+            item.positive == 1 -> ContextCompat.getColor(context, R.color.green)
+            else -> ContextCompat.getColor(context, R.color.red)
+        }
         
         chart.setTouchEnabled(false)
         chart.setViewPortOffsets(0F, 0F, 0F, 0F)
@@ -31,7 +36,12 @@ class PortfolioChartConfig(val context: Context,
         dataSet.setDrawValues(false)
         dataSet.lineWidth = 0f
         dataSet.color = backgroundColor
-        dataSet.fillDrawable = ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient)
+        dataSet.fillDrawable = when {
+            isHeader -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient)
+            item.positive == 1 -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient_positive)
+            else -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient_negative)
+        } 
+                
 
         val xAxis = chart.xAxis
         xAxis.setDrawGridLines(false)
@@ -54,7 +64,6 @@ class PortfolioChartConfig(val context: Context,
         legend.isEnabled = false
 
         val lineData = LineData(dataSet)
-//        lineData.setValueFormatter(ChartDollarFormatter())
         chart.data = lineData
     }
 }

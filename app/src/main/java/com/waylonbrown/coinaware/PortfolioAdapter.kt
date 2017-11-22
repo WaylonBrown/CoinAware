@@ -35,7 +35,7 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
             return PortfolioHeaderViewHolder(view, itemClickedListener)
         } else {
             val view =  layoutInflater.inflate(R.layout.portfolio_item, parent, false)
-            return PortfolioHeaderViewHolder(view, itemClickedListener)
+            return PortfolioItemViewHolder(view)
         }
     }
 
@@ -70,25 +70,17 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
 
             // TODO: android extensions
             val chart = itemView.findViewById<LineChart>(R.id.chart)
-            PortfolioChartConfig(itemView.context, chart, item).apply()
+            PortfolioChartConfig(itemView.context, chart, item, true).apply()
 
             chart.invalidate()
         }
     }
 
     // TODO: remove duplication
-    class PortfolioItemViewHolder(itemView: View, listener: ListItemClickedListener)
+    class PortfolioItemViewHolder(itemView: View)
         : RecyclerView.ViewHolder(itemView) {
 
         lateinit var item: DummyHeaderListData
-
-        interface ListItemClickedListener {
-            fun itemClicked(data: DummyHeaderListData)
-        }
-
-        init {
-            itemView.setOnClickListener { listener.itemClicked(item) }
-        }
 
         // TODO: remove this comment when done
         // Example: 
@@ -98,7 +90,7 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
 
             // TODO: android extensions
             val chart = itemView.findViewById<LineChart>(R.id.chart)
-            PortfolioChartConfig(itemView.context, chart, item).apply()
+            PortfolioChartConfig(itemView.context, chart, item, false).apply()
 
             chart.invalidate()
         }

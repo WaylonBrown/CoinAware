@@ -5,16 +5,16 @@ import java.util.*
 
 class DummyDataProvider {
     
-    data class DummyHeaderListData(val data: List<Entry>)
+    data class DummyHeaderListData(val data: List<Entry>, val positive: Int)
     
     fun getDummyHeaderData(): Set<DummyHeaderListData> {
         val dataSet = mutableSetOf<DummyHeaderListData>()
-        dataSet.add(DummyHeaderListData(getDummyChartData()))
-        dataSet.add(DummyHeaderListData(getDummyChartData()))
-        dataSet.add(DummyHeaderListData(getDummyChartData()))
-        dataSet.add(DummyHeaderListData(getDummyChartData()))
-        dataSet.add(DummyHeaderListData(getDummyChartData()))
-        dataSet.add(DummyHeaderListData(getDummyChartData()))
+        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
+        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
+        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
+        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
+        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
+        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
         return dataSet
     }
 
