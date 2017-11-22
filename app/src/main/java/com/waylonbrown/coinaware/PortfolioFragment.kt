@@ -12,6 +12,7 @@ import com.waylonbrown.coinaware.PortfolioAdapter.PortfolioHeaderViewHolder
 import kotlinx.android.synthetic.main.portfolio_page.*
 
 class PortfolioFragment : Fragment(), PortfolioHeaderViewHolder.ListItemClickedListener {
+    
     lateinit var portfolioAdapter: PortfolioAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
 import com.waylonbrown.coinaware.PortfolioAdapter.PortfolioHeaderViewHolder
 import com.waylonbrown.coinaware.PortfolioAdapter.PortfolioHeaderViewHolder.ListItemClickedListener
 
+// TODO: remove this comment when done
+// Viewholders example: https://jonfhancock.com/your-viewholders-are-dumb-make-em-not-dumb-82e6f73f630c
 class PortfolioAdapter(val layoutInflater: LayoutInflater, 
                        val itemClickedListener: ListItemClickedListener) 
     : RecyclerView.Adapter<PortfolioHeaderViewHolder>() {
@@ -59,17 +59,16 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
             itemView.setOnClickListener { listener.itemClicked(item) }
         }
         
+        // TODO: remove this comment when done
+        // Example: 
+        // https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/CubicLineChartActivity.java
         fun setData(data: DummyHeaderListData) {
             this.item = data
+            
             // TODO: android extensions
             val chart = itemView.findViewById<LineChart>(R.id.chart)
-//            chart.setViewPortOffsets(0, 0, 0, 0)
+            PortfolioChartConfig(chart, item).apply()
             
-            val dataSet = LineDataSet(item.data, "Data set test")
-            dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
-            
-            val lineData = LineData(dataSet)
-            chart.data = lineData
             chart.invalidate()
         }
     }
