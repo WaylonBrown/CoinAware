@@ -9,15 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.waylonbrown.coinaware.DummyDataProvider.DummyHeaderListData
 import com.waylonbrown.coinaware.PortfolioAdapter.PortfolioHeaderViewHolder
-import kotlinx.android.synthetic.main.portfolio_page.*
+import kotlinx.android.synthetic.main.page_portfolio.*
 
 class PortfolioFragment : Fragment(), PortfolioHeaderViewHolder.ListItemClickedListener {
     
     lateinit var portfolioAdapter: PortfolioAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.portfolio_page, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, 
+                              container: ViewGroup?, 
+                              savedInstanceState: Bundle?): View? 
+            = inflater.inflate(R.layout.page_portfolio, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

@@ -47,7 +47,11 @@ class HomeActivity : AppCompatActivity() {
     
     class HomeViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         
-        override fun getItem(position: Int): Fragment = PortfolioFragment()
+        override fun getItem(position: Int): Fragment = when (position) {
+            0 -> PortfolioFragment()
+            1 -> DummyFragment()
+            else -> DummyFragment()
+        }
 
         override fun getCount(): Int = PageType.values().size
 
