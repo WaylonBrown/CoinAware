@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import com.waylonbrown.coinaware.portfolio.PortfolioFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 
@@ -48,9 +47,7 @@ class HomeActivity : AppCompatActivity() {
     
     class HomeViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         
-        override fun getItem(position: Int): Fragment {
-            return PortfolioFragment()
-        }
+        override fun getItem(position: Int): Fragment = PortfolioFragment()
 
         override fun getCount(): Int = PageType.values().size
 
