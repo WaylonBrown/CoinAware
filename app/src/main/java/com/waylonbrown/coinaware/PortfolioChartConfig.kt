@@ -1,7 +1,6 @@
 package com.waylonbrown.coinaware
 
 import android.content.Context
-import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.YAxis
@@ -15,11 +14,14 @@ class PortfolioChartConfig(val context: Context,
                            val item: DummyHeaderListData) {
     
     fun apply() {
+        val backgroundColor = ContextCompat.getColor(context, R.color.colorPrimary)
+        
         chart.setTouchEnabled(false)
         chart.setViewPortOffsets(0F, 0F, 0F, 0F)
         chart.description = null
         chart.isAutoScaleMinMaxEnabled = true
         chart.setDrawBorders(false)
+        chart.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.card_background_gradient))
 
         val dataSet = LineDataSet(item.data, "Data set test")
         dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
@@ -28,7 +30,7 @@ class PortfolioChartConfig(val context: Context,
         dataSet.setDrawCircles(false)
         dataSet.setDrawValues(false)
         dataSet.lineWidth = 0f
-        dataSet.color = Color.WHITE
+        dataSet.color = backgroundColor
         dataSet.fillDrawable = ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient)
 
         val xAxis = chart.xAxis

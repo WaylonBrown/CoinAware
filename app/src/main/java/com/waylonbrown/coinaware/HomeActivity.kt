@@ -53,7 +53,6 @@ class HomeActivity : AppCompatActivity() {
 
     }
     
-    // TODO: is navigation here a memory leak?
     class HomeViewPageChangeListener(private val navigation: BottomNavigationView) 
             : ViewPager.OnPageChangeListener {
         
