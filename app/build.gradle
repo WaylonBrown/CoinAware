@@ -123,5 +123,7 @@ android {
         debugCompile "com.squareup.leakcanary:leakcanary-android:$versions.leakCanary"
         releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakCanary"
         testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakCanary"
+
+        compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.github.mikephil.charting.data.Entry
 import com.waylonbrown.coinaware.PortfolioAdapter.PortfolioHeaderViewHolder
 import kotlinx.android.synthetic.main.portfolio_page.*
 
@@ -24,11 +25,26 @@ class PortfolioFragment : Fragment(), PortfolioHeaderViewHolder.ListItemClickedL
         recyclerView.layoutManager = LinearLayoutManager(activity)
         portfolioAdapter = PortfolioAdapter(layoutInflater, this)
         recyclerView.adapter = portfolioAdapter
-        portfolioAdapter.updateItems(DummyData("Test"))
+        portfolioAdapter.updateItems(DummyHeaderListData(getDummyData()))
         
     }
 
-    override fun itemClicked(data: DummyData) {
+    private fun getDummyData(): List<Entry> {
+        val list = mutableListOf<Entry>()
+        list.add(Entry(0F, 10F))
+        list.add(Entry(1F, 8F))
+        list.add(Entry(2F, 7F))
+        list.add(Entry(3F, 8F))
+        list.add(Entry(4F, 7F))
+        list.add(Entry(5F, 7F))
+        list.add(Entry(6F, 10F))
+        list.add(Entry(7F, 12F))
+        list.add(Entry(8F, 13F))
+        list.add(Entry(9F, 17F))
+        return list
+    }
+
+    override fun itemClicked(data: DummyHeaderListData) {
         Toast.makeText(activity, "Clicked", Toast.LENGTH_LONG).show()
     }
 
