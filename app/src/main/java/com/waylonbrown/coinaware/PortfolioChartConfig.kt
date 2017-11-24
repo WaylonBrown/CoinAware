@@ -17,12 +17,12 @@ class PortfolioChartConfig(val context: Context,
     fun apply() {
         val backgroundColor = when {
             isHeader -> ContextCompat.getColor(context, R.color.colorPrimary)
-            item.positive == 1 -> ContextCompat.getColor(context, R.color.green)
+            item.positiveTrend == 1 -> ContextCompat.getColor(context, R.color.green)
             else -> ContextCompat.getColor(context, R.color.red)
         }
         
         chart.setTouchEnabled(false)
-        chart.setViewPortOffsets(0F, 0F, 0F, 0F)
+        chart.setViewPortOffsets(-1F, -1F, 0F, 0F)
         chart.description = null
         chart.isAutoScaleMinMaxEnabled = true
         chart.setDrawBorders(false)
@@ -38,7 +38,7 @@ class PortfolioChartConfig(val context: Context,
         dataSet.color = backgroundColor
         dataSet.fillDrawable = when {
             isHeader -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient)
-            item.positive == 1 -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient_positive)
+            item.positiveTrend == 1 -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient_positive)
             else -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient_negative)
         } 
                 
