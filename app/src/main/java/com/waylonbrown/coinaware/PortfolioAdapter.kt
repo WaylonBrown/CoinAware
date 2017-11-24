@@ -36,7 +36,7 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
             val view =  layoutInflater.inflate(R.layout.portfolio_item_header, parent, false)
             return PortfolioHeaderViewHolder(view, itemClickedListener)
         } else {
-            val view =  layoutInflater.inflate(R.layout.portfolio_item, parent, false)
+            val view =  layoutInflater.inflate(R.layout.portfolio_item_compact, parent, false)
             return PortfolioItemViewHolder(view)
         }
     }
@@ -95,7 +95,10 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
             PortfolioChartConfig(itemView.context, chart, item, false).apply()
             
             val coinHoldings = itemView.findViewById<TextView>(R.id.coinHoldings)
-            coinHoldings.setText(Html.fromHtml("3.924 ETH = <b>$1323.12</b>"))
+            // TODO: not on compact view
+            if (coinHoldings != null) {
+                coinHoldings.setText(Html.fromHtml("3.924 ETH = <b>$1323.12</b>"))
+            }
 
             chart.invalidate()
         }
