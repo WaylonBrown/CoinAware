@@ -22,12 +22,21 @@ class PortfolioChartConfig(val context: Context,
             else -> ContextCompat.getColor(context, R.color.red)
         }
         
+        if (chart.data == null || chart.data.dataSetCount == 0) {
+            initializeChart(backgroundColor)
+        } else {
+            updateData(backgroundColor)
+        }
+
+        chart.setBackgroundColor(backgroundColor)
+    }
+
+    private fun initializeChart(backgroundColor: Int) {
         chart.setTouchEnabled(false)
         chart.setViewPortOffsets(-1F, -1F, 0F, 0F)
         chart.description = null
         chart.isAutoScaleMinMaxEnabled = true
         chart.setDrawBorders(false)
-        chart.setBackgroundColor(backgroundColor)
 
         val dataSet = LineDataSet(item.data, "Data set test")
         dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
@@ -41,8 +50,8 @@ class PortfolioChartConfig(val context: Context,
             isHeader -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient)
             item.positiveTrend == 1 -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient_positive)
             else -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient_negative)
-        } 
-                
+        }
+
 
         val xAxis = chart.xAxis
         xAxis.setDrawGridLines(false)
@@ -57,7 +66,7 @@ class PortfolioChartConfig(val context: Context,
         yAxisRight.setDrawGridLines(false)
         yAxisRight.setDrawZeroLine(false)
         yAxisRight.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
-        yAxisRight.setValueFormatter { 
+        yAxisRight.setValueFormatter {
             value, axis -> FloatToCurrencyFormatter(value).format()
         }
 
@@ -66,5 +75,12 @@ class PortfolioChartConfig(val context: Context,
 
         val lineData = LineData(dataSet)
         chart.data = lineData
+    }
+
+    private fun updateData(backgroundColor: Int) {
+        val dataSet = chart.data.getDataSetByIndex(0) as LineDataSet
+        dataSet.values = item.data
+        dataSet.color = backgroundColor
+        chart.data.notifyDataChanged()
     }
 }

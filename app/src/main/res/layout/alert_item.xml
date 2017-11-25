@@ -51,8 +51,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
-            android:paddingRight="16dp"
+            android:paddingRight="8dp"
             android:paddingTop="16dp"
+            android:paddingLeft="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/xButton"
             app:layout_constraintTop_toTopOf="parent" />
@@ -64,13 +65,15 @@
             android:paddingBottom="16dp"
             android:paddingRight="16dp"
             android:paddingTop="16dp"
+            android:paddingLeft="8dp"
             android:fontFamily="@font/roboto_light"
-            android:text="X"
+            android:text="x"
             android:textColor="@color/textColorDark"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="true"/>
         
     </android.support.constraint.ConstraintLayout>
 

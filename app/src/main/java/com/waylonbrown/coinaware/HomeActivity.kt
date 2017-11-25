@@ -22,6 +22,7 @@ class HomeActivity : AppCompatActivity() {
         
         viewPager.adapter = HomeViewPagerAdapter(supportFragmentManager)
         viewPager.addOnPageChangeListener(HomeViewPageChangeListener(navigation))
+        viewPager.offscreenPageLimit = 2
 
         navigation.setOnNavigationItemSelectedListener({ item -> navigationItemSelected(item) })
     }

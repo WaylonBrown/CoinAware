@@ -74,8 +74,6 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
             // TODO: android extensions
             val chart = itemView.findViewById<LineChart>(R.id.chart)
             PortfolioChartConfig(itemView.context, chart, item, true).apply()
-
-            chart.invalidate()
         }
     }
 
@@ -98,10 +96,8 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
             val coinHoldings = itemView.findViewById<TextView>(R.id.coinHoldings)
             // TODO: not on compact view
             if (coinHoldings != null) {
-                coinHoldings.setText(Html.fromHtml("3.924 ETH = <b>$1323.12</b>"))
+                coinHoldings.text = Html.fromHtml("3.924 ETH = <b>$1323.12</b>")
             }
-
-            chart.invalidate()
         }
     }
 }
