@@ -5,11 +5,13 @@
     <color name="colorAccent">#80d6ff</color>
     
     <color name="white">#FFF</color>
+    <color name="lightgray">#eeeeee</color>
 
     <color name="colorPrimaryLight">#80d6ff</color>
     <color name="colorPrimaryExtraDark">#003668</color>
     
-    <color name="textColor">@color/white</color>
+    <color name="textColorLight">@color/white</color>
+    <color name="textColorDark">#424242</color>
     
     <color name="green">#2e7d32</color>
     <color name="greenDark">#005005</color>

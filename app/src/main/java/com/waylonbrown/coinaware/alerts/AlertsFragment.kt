@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware
+package com.waylonbrown.coinaware.alerts
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,32 +7,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.waylonbrown.coinaware.DummyDataProvider.DummyHeaderListData
-import com.waylonbrown.coinaware.PortfolioAdapter.PortfolioHeaderViewHolder
-import kotlinx.android.synthetic.main.page_portfolio.*
+import com.waylonbrown.coinaware.R
+import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider
+import kotlinx.android.synthetic.main.page_recyclerview.*
 
-class PortfolioFragment : Fragment(), PortfolioHeaderViewHolder.ListItemClickedListener {
-    
-    lateinit var portfolioAdapter: PortfolioAdapter
+// TODO: base adapter fragment
+class AlertsFragment : Fragment(), AlertsAdapter.AlertItemViewHolder.ListItemClickedListener {
+    lateinit var alertsAdapter: AlertsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, 
                               container: ViewGroup?, 
                               savedInstanceState: Bundle?): View? 
-            = inflater.inflate(R.layout.page_portfolio, container, false)
+            = inflater.inflate(R.layout.page_recyclerview, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
+
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        portfolioAdapter = PortfolioAdapter(layoutInflater, this)
-        recyclerView.adapter = portfolioAdapter
-        portfolioAdapter.updateItems(DummyDataProvider().getDummyHeaderData())
-        
+        alertsAdapter = AlertsAdapter(layoutInflater, this)
+        recyclerView.adapter = alertsAdapter
+        alertsAdapter.updateItems(DummyAlertDataProvider().getDummyData())
+
     }
 
-    override fun itemClicked(data: DummyHeaderListData) {
+    override fun itemClicked(data: DummyAlertDataProvider.AlertListItem) {
         Toast.makeText(activity, "Clicked", Toast.LENGTH_LONG).show()
     }
-
 }

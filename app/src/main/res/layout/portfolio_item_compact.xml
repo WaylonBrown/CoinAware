@@ -23,7 +23,7 @@
         android:layout_marginStart="12dp"
         android:fontFamily="@font/roboto_medium"
         android:text="ETH"
-        android:textColor="@color/textColor"
+        android:textColor="@color/textColorLight"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/chart"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
         android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto_light"
         android:text="$1425.23"
-        android:textColor="@color/textColor"
+        android:textColor="@color/textColorLight"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/chart"
         app:layout_constraintStart_toEndOf="@+id/coinTitle"
@@ -50,7 +50,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto_light"
         android:text="3.924 ETH"
-        android:textColor="@color/textColor"
+        android:textColor="@color/textColorLight"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/coinPrice"
         app:layout_constraintTop_toTopOf="@+id/chart" />
@@ -62,7 +62,7 @@
         android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto_light"
         android:text="$1324.12"
-        android:textColor="@color/textColor"
+        android:textColor="@color/textColorLight"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/coinPrice"
         app:layout_constraintTop_toBottomOf="@+id/coinHoldings1" />
@@ -75,7 +75,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto_medium"
         android:text="▲$3.25"
-        android:textColor="@color/textColor"
+        android:textColor="@color/textColorLight"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/coinHoldings1"
         app:layout_constraintTop_toTopOf="@+id/chart" />
@@ -87,7 +87,7 @@
         android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto_medium"
         android:text="▲12.56%"
-        android:textColor="@color/textColor"
+        android:textColor="@color/textColorLight"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/coinHoldings1"
         app:layout_constraintTop_toBottomOf="@+id/coinChange1" />

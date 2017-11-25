@@ -34,7 +34,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Ethereum (ETH)"
-            android:textColor="@color/textColor"
+            android:textColor="@color/textColorLight"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +46,7 @@
             android:layout_marginStart="12dp"
             android:fontFamily="@font/roboto_light"
             android:text="$1425.23"
-            android:textColor="@color/textColor"
+            android:textColor="@color/textColorLight"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/coinTitle" />
@@ -58,7 +58,7 @@
             android:layout_marginStart="12dp"
             android:fontFamily="@font/roboto_light"
             android:text="3.924 ETH = $1324.12"
-            android:textColor="@color/textColor"
+            android:textColor="@color/textColorLight"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/chart"
             app:layout_constraintTop_toBottomOf="@+id/coinPrice" />
@@ -70,7 +70,7 @@
             android:layout_marginStart="12dp"
             android:fontFamily="@font/roboto_medium"
             android:text="▲12.56%   ▲$13.23"
-            android:textColor="@color/textColor"
+            android:textColor="@color/textColorLight"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/chart"
             app:layout_constraintTop_toBottomOf="@+id/coinHoldings" />

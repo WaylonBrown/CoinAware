@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware
+package com.waylonbrown.coinaware.portfolio
 
 import android.support.v7.widget.RecyclerView
 import android.text.Html
@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
-import com.waylonbrown.coinaware.DummyDataProvider.DummyHeaderListData
-import com.waylonbrown.coinaware.PortfolioAdapter.PortfolioHeaderViewHolder.ListItemClickedListener
+import com.waylonbrown.coinaware.R
+import com.waylonbrown.coinaware.dummy.DummyChartDataProvider.PortfolioListItem
+import com.waylonbrown.coinaware.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder.ListItemClickedListener
 
 // TODO: remove this comment when done
 // Viewholders example: https://jonfhancock.com/your-viewholders-are-dumb-make-em-not-dumb-82e6f73f630c
@@ -16,14 +17,14 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
                        val itemClickedListener: ListItemClickedListener) 
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     
-    var items: Set<DummyHeaderListData> = mutableSetOf()
+    var items: Set<PortfolioListItem> = mutableSetOf()
 
     enum class ItemType {
         HEADER,
         LIST_ITEM
     }
 
-    fun updateItems(data: Set<DummyHeaderListData>) {
+    fun updateItems(data: Set<PortfolioListItem>) {
         this.items = data
     }
 
@@ -33,10 +34,10 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == ItemType.HEADER.ordinal) {
-            val view =  layoutInflater.inflate(R.layout.portfolio_item_header, parent, false)
+            val view = layoutInflater.inflate(R.layout.portfolio_item_header, parent, false)
             return PortfolioHeaderViewHolder(view, itemClickedListener)
         } else {
-            val view =  layoutInflater.inflate(R.layout.portfolio_item_compact, parent, false)
+            val view = layoutInflater.inflate(R.layout.portfolio_item_compact, parent, false)
             return PortfolioItemViewHolder(view)
         }
     }
@@ -54,10 +55,10 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
     class PortfolioHeaderViewHolder(itemView: View, listener: ListItemClickedListener)
         : RecyclerView.ViewHolder(itemView) {
 
-        lateinit var item: DummyHeaderListData
+        lateinit var item: PortfolioListItem
 
         interface ListItemClickedListener {
-            fun itemClicked(data: DummyHeaderListData)
+            fun itemClicked(data: PortfolioListItem)
         }
 
         init {
@@ -67,7 +68,7 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
         // TODO: remove this comment when done
         // Example: 
         // https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/CubicLineChartActivity.java
-        fun setData(data: DummyHeaderListData) {
+        fun setData(data: PortfolioListItem) {
             this.item = data
 
             // TODO: android extensions
@@ -82,12 +83,12 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
     class PortfolioItemViewHolder(itemView: View)
         : RecyclerView.ViewHolder(itemView) {
 
-        lateinit var item: DummyHeaderListData
+        lateinit var item: PortfolioListItem
 
         // TODO: remove this comment when done
         // Example: 
         // https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/CubicLineChartActivity.java
-        fun setData(data: DummyHeaderListData) {
+        fun setData(data: PortfolioListItem) {
             this.item = data
 
             // TODO: android extensions

@@ -1,28 +1,28 @@
-package com.waylonbrown.coinaware
+package com.waylonbrown.coinaware.dummy
 
 import com.github.mikephil.charting.data.Entry
 import java.util.*
 
-class DummyDataProvider {
-    
-    data class DummyHeaderListData(val data: List<Entry>, val positiveTrend: Int)
-    
-    fun getDummyHeaderData(): Set<DummyHeaderListData> {
-        val dataSet = mutableSetOf<DummyHeaderListData>()
-        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
-        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
-        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
-        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
-        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
-        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
-        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
-        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
-        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
-        dataSet.add(DummyHeaderListData(getDummyChartData(), Random().nextInt(2)))
+class DummyChartDataProvider {
+
+    data class PortfolioListItem(val data: List<Entry>, val positiveTrend: Int)
+
+    fun getDummyData(): Set<PortfolioListItem> {
+        val dataSet = mutableSetOf<PortfolioListItem>()
+        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
+        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
+        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
+        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
+        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
+        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
+        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
+        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
+        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
+        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
         return dataSet
     }
-
-    private fun getDummyChartData(): List<Entry> = when (randNumber()) {
+    
+    private fun getRandomChartData(): List<Entry> = when (randNumber()) {
         0 -> randSet1()
         1 -> randSet2()
         else -> randSet3()
@@ -105,6 +105,28 @@ class DummyDataProvider {
         list.add(Entry(20F, .1F))
         return list
     }
-    
+
     private fun randNumber() = Random().nextInt((2 - 0) + 1)
+}
+
+class DummyAlertDataProvider {
+
+    data class AlertListItem(val isHeader: Boolean = false,
+                             val headerName: String = "",
+                             val currentPrice: Float = 0f,
+                             val triggerPrice: Float = 0f,
+                             val isPersistent: Boolean = false,
+                             val isOn: Boolean = false)
+
+    fun getDummyData(): List<AlertListItem> {
+        val dataSet = mutableListOf<AlertListItem>()
+        dataSet.add(AlertListItem(isHeader = true, headerName = "ETH", currentPrice = 458.34f))
+        dataSet.add(AlertListItem(triggerPrice = 500.0f, isPersistent = false, isOn = true))
+        dataSet.add(AlertListItem(triggerPrice = 750.0f, isPersistent = true, isOn = false))
+        dataSet.add(AlertListItem(isHeader = true, headerName = "BTC", currentPrice = 8504.23f))
+        dataSet.add(AlertListItem(triggerPrice = 8500.0f, isPersistent = false, isOn = true))
+        dataSet.add(AlertListItem(isHeader = true, headerName = "LTC", currentPrice = 74.23f))
+        dataSet.add(AlertListItem(triggerPrice = 100.0f, isPersistent = false, isOn = true))
+        return dataSet
+    }
 }

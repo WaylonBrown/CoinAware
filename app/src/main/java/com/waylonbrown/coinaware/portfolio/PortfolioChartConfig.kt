@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware
+package com.waylonbrown.coinaware.portfolio
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
@@ -6,12 +6,13 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.waylonbrown.coinaware.DummyDataProvider.DummyHeaderListData
-import java.text.DecimalFormat
+import com.waylonbrown.coinaware.R
+import com.waylonbrown.coinaware.dummy.DummyChartDataProvider.PortfolioListItem
+import com.waylonbrown.coinaware.util.FloatToCurrencyFormatter
 
 class PortfolioChartConfig(val context: Context,
                            val chart: LineChart,
-                           val item: DummyHeaderListData,
+                           val item: PortfolioListItem,
                            val isHeader: Boolean) {
     
     fun apply() {
@@ -57,7 +58,7 @@ class PortfolioChartConfig(val context: Context,
         yAxisRight.setDrawZeroLine(false)
         yAxisRight.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
         yAxisRight.setValueFormatter { 
-            value, axis -> "$${DecimalFormat("#.00").format(value)}" 
+            value, axis -> FloatToCurrencyFormatter(value).format()
         }
 
         val legend = chart.legend
