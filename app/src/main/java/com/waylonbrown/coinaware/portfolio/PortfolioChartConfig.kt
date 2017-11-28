@@ -82,5 +82,6 @@ class PortfolioChartConfig(val context: Context,
         dataSet.values = item.data
         dataSet.color = backgroundColor
         chart.data.notifyDataChanged()
+        chart.notifyDataSetChanged()
     }
 }
