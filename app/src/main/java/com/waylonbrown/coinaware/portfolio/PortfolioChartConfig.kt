@@ -18,8 +18,7 @@ class PortfolioChartConfig(val context: Context,
     fun apply() {
         val backgroundColor = when {
             isHeader -> ContextCompat.getColor(context, R.color.colorPrimary)
-            item.positiveTrend == 1 -> ContextCompat.getColor(context, R.color.green)
-            else -> ContextCompat.getColor(context, R.color.red)
+            else -> ContextCompat.getColor(context, R.color.white)
         }
         
         if (chart.data == null || chart.data.dataSetCount == 0) {
@@ -41,17 +40,22 @@ class PortfolioChartConfig(val context: Context,
         val dataSet = LineDataSet(item.data, "Data set test")
         dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
 //        dataSet.cubicIntensity = 0.2f
-        dataSet.setDrawFilled(true)
         dataSet.setDrawCircles(false)
         dataSet.setDrawValues(false)
-        dataSet.lineWidth = 0f
-        dataSet.color = backgroundColor
-        dataSet.fillDrawable = when {
-            isHeader -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient)
-            item.positiveTrend == 1 -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient_positive)
-            else -> ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient_negative)
+        dataSet.setDrawFilled(true)
+        if (isHeader) {
+            dataSet.lineWidth = 0f
+            dataSet.color = backgroundColor
+            dataSet.fillDrawable = ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient)
+        } else if (item.positiveTrend){
+            dataSet.lineWidth = 2f
+            dataSet.color = ContextCompat.getColor(context, R.color.green)
+            dataSet.fillColor = ContextCompat.getColor(context, R.color.greenLight)
+        } else {
+            dataSet.lineWidth = 2f
+            dataSet.color = ContextCompat.getColor(context, R.color.red)
+            dataSet.fillColor = ContextCompat.getColor(context, R.color.redLight)
         }
-
 
         val xAxis = chart.xAxis
         xAxis.setDrawGridLines(false)
@@ -62,7 +66,11 @@ class PortfolioChartConfig(val context: Context,
         yAxisLeft.setDrawZeroLine(false)
 
         val yAxisRight = chart.axisRight
-        yAxisRight.textColor = ContextCompat.getColor(context, R.color.white)
+        val yAxisRightTextColor = when {
+            isHeader -> ContextCompat.getColor(context, R.color.white)
+            else -> ContextCompat.getColor(context, R.color.textColorDark)
+        }
+        yAxisRight.textColor = yAxisRightTextColor
         yAxisRight.setDrawGridLines(false)
         yAxisRight.setDrawZeroLine(false)
         yAxisRight.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)

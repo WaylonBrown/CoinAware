@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.waylonbrown.coinaware.R
+import com.waylonbrown.coinaware.dummy.DummyChartDataProvider
 import com.waylonbrown.coinaware.dummy.DummyChartDataProvider.PortfolioListItem
 import com.waylonbrown.coinaware.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder
-import com.waylonbrown.coinaware.dummy.DummyChartDataProvider
 import kotlinx.android.synthetic.main.page_recyclerview.*
 
 // TODO: base adapter fragment
@@ -30,6 +30,10 @@ class PortfolioFragment : Fragment(), PortfolioHeaderViewHolder.ListItemClickedL
         recyclerView.layoutManager = LinearLayoutManager(activity)
         portfolioAdapter = PortfolioAdapter(layoutInflater, this)
         recyclerView.adapter = portfolioAdapter
+//        val dividerItemDecoration = DividerItemDecoration(recyclerView.context,
+//                (recyclerView.layoutManager as LinearLayoutManager).orientation)
+//        dividerItemDecoration.setDrawable(activity.resources.getDrawable())
+//        recyclerView.addItemDecoration(dividerItemDecoration)
         portfolioAdapter.updateItems(DummyChartDataProvider().getDummyData())
         
     }

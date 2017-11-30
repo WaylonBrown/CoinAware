@@ -13,10 +13,12 @@
     <color name="textColorLight">@color/white</color>
     <color name="textColorDark">#424242</color>
     
-    <color name="green">#2e7d32</color>
+    <color name="green">#4caf50</color>
+    <color name="greenLight">#80e27e</color>
     <color name="greenDark">#005005</color>
     
-    <color name="red">#af2a02</color>
+    <color name="red">#ff5722</color>
+    <color name="redLight">#ff8a50</color>
     <color name="redDark">#790000</color>
     
 </resources>

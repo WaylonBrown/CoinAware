@@ -5,20 +5,20 @@ import java.util.*
 
 class DummyChartDataProvider {
 
-    data class PortfolioListItem(val data: List<Entry>, val positiveTrend: Int)
+    data class PortfolioListItem(val data: List<Entry>, val positiveTrend: Boolean)
 
     fun getDummyData(): Set<PortfolioListItem> {
         val dataSet = mutableSetOf<PortfolioListItem>()
-        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
-        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
-        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
-        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
-        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
-        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
-        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
-        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
-        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
-        dataSet.add(PortfolioListItem(getRandomChartData(), Random().nextInt(2)))
+        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
+        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
+        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
+        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
+        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
+        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
+        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
+        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
+        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
+        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
         return dataSet
     }
     
@@ -107,6 +107,13 @@ class DummyChartDataProvider {
     }
 
     private fun randNumber() = Random().nextInt((2 - 0) + 1)
+    
+    private fun randTrend(): Boolean {
+        if (Random().nextInt(2) == 0) {
+            return true
+        }
+        return false
+    }
 }
 
 class DummyAlertDataProvider {
