@@ -100,15 +100,6 @@
             app:layout_constraintStart_toEndOf="@+id/coinHoldings1"
             app:layout_constraintTop_toBottomOf="@+id/coinChange1" />
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height=".7dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chart" />
-
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

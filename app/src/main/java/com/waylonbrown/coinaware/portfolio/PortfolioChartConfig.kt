@@ -18,7 +18,8 @@ class PortfolioChartConfig(val context: Context,
     fun apply() {
         val backgroundColor = when {
             isHeader -> ContextCompat.getColor(context, R.color.colorPrimary)
-            else -> ContextCompat.getColor(context, R.color.darkBackground)
+            item.positiveTrend -> ContextCompat.getColor(context, R.color.green)
+            else -> ContextCompat.getColor(context, R.color.red)
         }
         
         if (chart.data == null || chart.data.dataSetCount == 0) {
@@ -43,18 +44,14 @@ class PortfolioChartConfig(val context: Context,
         dataSet.setDrawCircles(false)
         dataSet.setDrawValues(false)
         dataSet.setDrawFilled(true)
+        dataSet.lineWidth = 0f
+        dataSet.color = backgroundColor
         if (isHeader) {
-            dataSet.lineWidth = 0f
-            dataSet.color = backgroundColor
             dataSet.fillDrawable = ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient)
         } else if (item.positiveTrend){
-            dataSet.lineWidth = 2f
-            dataSet.color = ContextCompat.getColor(context, R.color.green)
-            dataSet.setDrawFilled(false)
+            dataSet.fillColor = ContextCompat.getColor(context, R.color.greenDark)
         } else {
-            dataSet.lineWidth = 2f
-            dataSet.color = ContextCompat.getColor(context, R.color.red)
-            dataSet.setDrawFilled(false)
+            dataSet.fillColor = ContextCompat.getColor(context, R.color.redDark)
         }
 
         val xAxis = chart.xAxis
@@ -66,11 +63,10 @@ class PortfolioChartConfig(val context: Context,
         yAxisLeft.setDrawZeroLine(false)
 
         val yAxisRight = chart.axisRight
-        val yAxisRightTextColor = when {
+        yAxisRight.textColor = when {
             isHeader -> ContextCompat.getColor(context, R.color.white)
             else -> ContextCompat.getColor(context, R.color.white)
         }
-        yAxisRight.textColor = yAxisRightTextColor
         yAxisRight.setDrawGridLines(false)
         yAxisRight.setDrawZeroLine(false)
         yAxisRight.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
