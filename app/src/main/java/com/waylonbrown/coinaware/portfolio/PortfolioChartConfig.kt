@@ -18,7 +18,7 @@ class PortfolioChartConfig(val context: Context,
     fun apply() {
         val backgroundColor = when {
             isHeader -> ContextCompat.getColor(context, R.color.colorPrimary)
-            else -> ContextCompat.getColor(context, R.color.white)
+            else -> ContextCompat.getColor(context, R.color.darkBackground)
         }
         
         if (chart.data == null || chart.data.dataSetCount == 0) {
@@ -50,11 +50,11 @@ class PortfolioChartConfig(val context: Context,
         } else if (item.positiveTrend){
             dataSet.lineWidth = 2f
             dataSet.color = ContextCompat.getColor(context, R.color.green)
-            dataSet.fillColor = ContextCompat.getColor(context, R.color.greenLight)
+            dataSet.setDrawFilled(false)
         } else {
             dataSet.lineWidth = 2f
             dataSet.color = ContextCompat.getColor(context, R.color.red)
-            dataSet.fillColor = ContextCompat.getColor(context, R.color.redLight)
+            dataSet.setDrawFilled(false)
         }
 
         val xAxis = chart.xAxis
@@ -68,7 +68,7 @@ class PortfolioChartConfig(val context: Context,
         val yAxisRight = chart.axisRight
         val yAxisRightTextColor = when {
             isHeader -> ContextCompat.getColor(context, R.color.white)
-            else -> ContextCompat.getColor(context, R.color.textColorDark)
+            else -> ContextCompat.getColor(context, R.color.white)
         }
         yAxisRight.textColor = yAxisRightTextColor
         yAxisRight.setDrawGridLines(false)
