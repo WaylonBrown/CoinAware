@@ -11,7 +11,8 @@
     android:layout_marginBottom="8dp"
     android:layout_marginTop="-1dp"
     app:cardElevation="6dp"
-    app:cardCornerRadius="0dp">
+    app:cardCornerRadius="0dp"
+    app:cardBackgroundColor="@color/colorPrimary">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -72,6 +73,38 @@
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/chart"
             app:layout_constraintTop_toTopOf="@+id/chart" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height=".7dp"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+        <View
+            android:id="@+id/highlight"
+            android:layout_width="56dp"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+        
+        <TextView
+            android:id="@+id/time1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="1 hour    12 hours    1 day    1 week    1 month    1 year    All"
+            android:textColor="@color/textColorLight"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chart" />
+
 
     </android.support.constraint.ConstraintLayout>
     
