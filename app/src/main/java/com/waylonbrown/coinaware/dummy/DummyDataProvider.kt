@@ -1,6 +1,10 @@
 package com.waylonbrown.coinaware.dummy
 
 import com.github.mikephil.charting.data.Entry
+import com.waylonbrown.coinaware.alerts.Alert
+import com.waylonbrown.coinaware.alerts.AlertHeader
+import com.waylonbrown.coinaware.alerts.AlertListItem
+import com.waylonbrown.coinaware.alerts.AlertTrigger
 import java.util.*
 
 class DummyChartDataProvider {
@@ -117,28 +121,6 @@ class DummyChartDataProvider {
 }
 
 class DummyAlertDataProvider {
-
-    data class AlertListItem(val header: AlertHeader? = null,
-                             val item: Alert? = null) {
-        
-        fun isHeader(): Boolean = header != null
-    }
-    
-    data class AlertHeader(val name: String, val currentPrice: Float)
-    
-    data class Alert(val trigger: AlertTrigger,
-                     val recurring: Boolean,
-                     val active: Boolean)
-    
-    class AlertTrigger(val type: Type,
-                       val positive: Boolean,
-                       val triggerAmount: Float) {
-        
-        enum class Type {
-            VALUE,
-            CHANGE
-        }
-    }
 
     fun getDummyData(): List<AlertListItem> {
         val dataSet = mutableListOf<AlertListItem>()
