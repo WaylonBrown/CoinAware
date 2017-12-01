@@ -92,10 +92,21 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
             this.alert = alert
 
             // TODO: android extensions
+            val greaterOrLessText = itemView.findViewById(R.id.greaterOrLess) as TextView
             val triggerText = itemView.findViewById(R.id.trigger) as TextView
             val recurringText = itemView.findViewById(R.id.recurring) as TextView
             val toggleButton = itemView.findViewById(R.id.toggleButton) as SwitchCompat
             
+            greaterOrLessText.text = when {
+                alert.trigger.type == Type.CHANGE -> when {
+                    alert.trigger.positive -> "Increase of"
+                    else -> "Decrease of"
+                }
+                else -> when {
+                    alert.trigger.positive -> "Greater than"
+                    else -> "Less than"
+                }
+            }
             triggerText.text = buildTriggerText()
             recurringText.text = when {
                 alert.recurring -> "Recurring"
@@ -109,24 +120,14 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
 
         private fun buildTriggerText(): String {
             val trigger = alert.trigger
-            var returnText: String
+            var returnText = ""
 
             if (trigger.type == Type.CHANGE) {
-                returnText = when {
-                    trigger.positive -> "+"
-                    else -> "-"
-                }
-                
                 returnText += FloatToCurrencyFormatter(alert.trigger.triggerAmount)
                         .formatToTwoDecimals()
                 
                 return "$returnText%"
             } else {
-                returnText = when {
-                    trigger.positive -> ">"
-                    else -> "<"
-                }
-                
                 returnText += FloatToCurrencyFormatter(alert.trigger.triggerAmount)
                         .formatWithDollarSign()
                 
