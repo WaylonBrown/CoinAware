@@ -13,6 +13,7 @@
     
     <color name="textColorLight">@color/white</color>
     <color name="textColorDark">#424242</color>
+    <color name="textColorGreen">#4caf50</color>
     
     <color name="green">#2e7d32</color>
     <color name="greenDark">#002b00</color>

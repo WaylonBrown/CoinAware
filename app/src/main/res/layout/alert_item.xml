@@ -23,16 +23,16 @@
             android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/roboto_medium"
+            android:fontFamily="@font/roboto_light"
             android:text=">$500"
             android:textColor="@color/textColorDark"
-            android:textSize="22sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/oneTimeOrPersistent"
+            android:id="@+id/recurring"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -41,7 +41,7 @@
             android:fontFamily="@font/roboto_light"
             android:text="1 time"
             android:textColor="@color/textColorDark"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

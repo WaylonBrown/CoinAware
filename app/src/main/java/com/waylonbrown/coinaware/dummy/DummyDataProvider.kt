@@ -118,22 +118,48 @@ class DummyChartDataProvider {
 
 class DummyAlertDataProvider {
 
-    data class AlertListItem(val isHeader: Boolean = false,
-                             val headerName: String = "",
-                             val currentPrice: Float = 0f,
-                             val triggerPrice: Float = 0f,
-                             val isPersistent: Boolean = false,
-                             val isOn: Boolean = false)
+    data class AlertListItem(val header: AlertHeader? = null,
+                             val item: Alert? = null) {
+        
+        fun isHeader(): Boolean = header != null
+    }
+    
+    data class AlertHeader(val name: String, val currentPrice: Float)
+    
+    data class Alert(val trigger: AlertTrigger,
+                     val recurring: Boolean,
+                     val active: Boolean)
+    
+    class AlertTrigger(val type: Type,
+                       val positive: Boolean,
+                       val triggerAmount: Float) {
+        
+        enum class Type {
+            VALUE,
+            CHANGE
+        }
+    }
 
     fun getDummyData(): List<AlertListItem> {
         val dataSet = mutableListOf<AlertListItem>()
-        dataSet.add(AlertListItem(isHeader = true, headerName = "ETH", currentPrice = 458.34f))
-        dataSet.add(AlertListItem(triggerPrice = 500.0f, isPersistent = false, isOn = true))
-        dataSet.add(AlertListItem(triggerPrice = 750.0f, isPersistent = true, isOn = false))
-        dataSet.add(AlertListItem(isHeader = true, headerName = "BTC", currentPrice = 8504.23f))
-        dataSet.add(AlertListItem(triggerPrice = 8500.0f, isPersistent = false, isOn = true))
-        dataSet.add(AlertListItem(isHeader = true, headerName = "LTC", currentPrice = 74.23f))
-        dataSet.add(AlertListItem(triggerPrice = 100.0f, isPersistent = false, isOn = true))
+        
+        dataSet.add(AlertListItem(header = AlertHeader("ETH", 454.23f)))
+        dataSet.add(AlertListItem(item = Alert(AlertTrigger(AlertTrigger.Type.VALUE,
+                positive = true,
+                triggerAmount = 500f), recurring = true, active = true)))
+        dataSet.add(AlertListItem(item = Alert(AlertTrigger(AlertTrigger.Type.CHANGE,
+                positive = true,
+                triggerAmount = 10f), recurring = false, active = false)))
+
+        dataSet.add(AlertListItem(header = AlertHeader("BTC", 9023.23f)))
+        dataSet.add(AlertListItem(item = Alert(AlertTrigger(AlertTrigger.Type.VALUE,
+                positive = true,
+                triggerAmount = 10000f), recurring = true, active = true)))
+
+        dataSet.add(AlertListItem(header = AlertHeader("LTC", 87.43f)))
+        dataSet.add(AlertListItem(item = Alert(AlertTrigger(AlertTrigger.Type.VALUE,
+                positive = true,
+                triggerAmount = 100f), recurring = false, active = true)))
         return dataSet
     }
 }

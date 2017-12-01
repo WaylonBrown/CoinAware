@@ -1,14 +1,17 @@
 package com.waylonbrown.coinaware.alerts
 
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SwitchCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.github.mikephil.charting.charts.LineChart
 import com.waylonbrown.coinaware.R
 import com.waylonbrown.coinaware.alerts.AlertsAdapter.AlertItemViewHolder.ListItemClickedListener
+import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider
+import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider.Alert
 import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider.AlertListItem
+import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider.AlertTrigger.Type.CHANGE
 import com.waylonbrown.coinaware.util.FloatToCurrencyFormatter
 
 // TODO: remove this comment when done
@@ -29,7 +32,7 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (items[position].isHeader) {
+        if (items[position].isHeader()) {
             return ItemType.HEADER.ordinal
         }
         return ItemType.LIST_ITEM.ordinal
@@ -47,9 +50,11 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is AlertHeaderViewHolder) {
-            holder.setData(items.elementAt(position))
+            // Null check has already happened
+            holder.setData(items.elementAt(position).header!!)
         } else if (holder is AlertItemViewHolder) {
-            holder.setData(items.elementAt(position))
+            // Null check has already happened
+            holder.setData(items.elementAt(position).item!!)
         }
     }
 
@@ -57,17 +62,18 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
 
     class AlertHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        lateinit var item: AlertListItem
+        // TODO: need to keep value here? Same for all other holders
+        lateinit var header: DummyAlertDataProvider.AlertHeader
 
-        fun setData(data: AlertListItem) {
-            this.item = data
+        fun setData(header: DummyAlertDataProvider.AlertHeader) {
+            this.header = header
 
             // TODO: android extensions
-            val coinTitle = itemView.findViewById<TextView>(R.id.coinTitle)
-            val coinPrice = itemView.findViewById<TextView>(R.id.coinPrice)
+            val coinTitle = itemView.findViewById(R.id.coinTitle) as TextView
+            val coinPrice = itemView.findViewById(R.id.coinPrice) as TextView
             
-            coinTitle.text = item.headerName
-            coinPrice.text = FloatToCurrencyFormatter(item.currentPrice).format()
+            coinTitle.text = header.name
+            coinPrice.text = FloatToCurrencyFormatter(header.currentPrice).format()
         }
     }
 
@@ -75,21 +81,56 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
     class AlertItemViewHolder(itemView: View, listener: ListItemClickedListener) 
         : RecyclerView.ViewHolder(itemView) {
 
-        lateinit var item: AlertListItem
+        lateinit var alert: Alert
 
         init {
-            itemView.setOnClickListener { listener.itemClicked(item) }
+            itemView.setOnClickListener { listener.itemClicked(alert) }
         }
         
         interface ListItemClickedListener {
-            fun itemClicked(data: AlertListItem)
+            fun itemClicked(data: Alert)
         }
 
-        fun setData(data: AlertListItem) {
-            this.item = data
+        fun setData(alert: Alert) {
+            this.alert = alert
 
             // TODO: android extensions
-            val chart = itemView.findViewById<LineChart>(R.id.chart)
+            val triggerText = itemView.findViewById(R.id.trigger) as TextView
+            val recurringText = itemView.findViewById(R.id.recurring) as TextView
+            val toggleButton = itemView.findViewById(R.id.toggleButton) as SwitchCompat
+            
+            triggerText.text = buildTriggerText()
+            recurringText.text = when {
+                alert.recurring -> "Recurring"
+                else -> "1 time"
+            }
+            toggleButton.isChecked = when {
+                alert.active -> true
+                else -> false
+            }
+        }
+
+        private fun buildTriggerText(): String {
+            val trigger = alert.trigger
+            var returnText = if (trigger.type == CHANGE) {
+                when {
+                    trigger.positive -> "+"
+                    else -> "-"
+                }
+            } else {
+                when {
+                    trigger.positive -> ">"
+                    else -> "<"
+                }
+            }
+            
+            returnText += FloatToCurrencyFormatter(alert.trigger.triggerAmount).format()
+            
+            if (trigger.type == CHANGE) {
+                returnText += "%"
+            }
+            
+            return returnText
         }
     }
 }

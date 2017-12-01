@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.waylonbrown.coinaware.R
+import com.waylonbrown.coinaware.alerts.AlertsAdapter.AlertItemViewHolder
 import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider
+import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider.Alert
 import kotlinx.android.synthetic.main.page_recyclerview.*
 
 // TODO: base adapter fragment
-class AlertsFragment : Fragment(), AlertsAdapter.AlertItemViewHolder.ListItemClickedListener {
+class AlertsFragment : Fragment(), AlertItemViewHolder.ListItemClickedListener {
     lateinit var alertsAdapter: AlertsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, 
@@ -31,7 +33,7 @@ class AlertsFragment : Fragment(), AlertsAdapter.AlertItemViewHolder.ListItemCli
 
     }
 
-    override fun itemClicked(data: DummyAlertDataProvider.AlertListItem) {
+    override fun itemClicked(data: Alert) {
         Toast.makeText(activity, "Clicked", Toast.LENGTH_LONG).show()
     }
 }
