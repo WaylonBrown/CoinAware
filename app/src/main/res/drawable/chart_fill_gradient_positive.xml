@@ -20,7 +20,7 @@
     <gradient
         android:angle="270"
         android:startColor="@color/greenDark"
-        android:endColor="@color/green"
+        android:endColor="@color/greenALittleLessDark"
         android:type="linear" />
 
 </shape>

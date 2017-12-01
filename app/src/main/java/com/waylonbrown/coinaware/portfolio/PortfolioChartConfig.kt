@@ -63,10 +63,7 @@ class PortfolioChartConfig(val context: Context,
         yAxisLeft.setDrawZeroLine(false)
 
         val yAxisRight = chart.axisRight
-        yAxisRight.textColor = when {
-            isHeader -> ContextCompat.getColor(context, R.color.white)
-            else -> ContextCompat.getColor(context, R.color.white)
-        }
+        yAxisRight.textColor = ContextCompat.getColor(context, R.color.white)
         yAxisRight.setDrawGridLines(false)
         yAxisRight.setDrawZeroLine(false)
         yAxisRight.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
