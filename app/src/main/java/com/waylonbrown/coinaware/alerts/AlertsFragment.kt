@@ -10,12 +10,11 @@ import android.widget.Toast
 import com.waylonbrown.coinaware.R
 import com.waylonbrown.coinaware.alerts.AlertsAdapter.AlertItemViewHolder
 import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider
-import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider.Alert
 import kotlinx.android.synthetic.main.page_recyclerview.*
 
 // TODO: base adapter fragment
 class AlertsFragment : Fragment(), AlertItemViewHolder.ListItemClickedListener {
-    lateinit var alertsAdapter: AlertsAdapter
+    private lateinit var alertsAdapter: AlertsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, 
                               container: ViewGroup?, 

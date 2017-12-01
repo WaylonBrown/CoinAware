@@ -68,7 +68,7 @@ class PortfolioChartConfig(val context: Context,
         yAxisRight.setDrawZeroLine(false)
         yAxisRight.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
         yAxisRight.setValueFormatter {
-            value, axis -> FloatToCurrencyFormatter(value).format()
+            value, axis -> FloatToCurrencyFormatter(value).formatWithDollarSign()
         }
 
         val legend = chart.legend

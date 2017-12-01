@@ -7,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.waylonbrown.coinaware.R
+import com.waylonbrown.coinaware.alerts.AlertTrigger.Type
 import com.waylonbrown.coinaware.alerts.AlertsAdapter.AlertItemViewHolder.ListItemClickedListener
-import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider
-import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider.Alert
-import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider.AlertListItem
-import com.waylonbrown.coinaware.dummy.DummyAlertDataProvider.AlertTrigger.Type.CHANGE
 import com.waylonbrown.coinaware.util.FloatToCurrencyFormatter
 
 // TODO: remove this comment when done
@@ -63,9 +60,9 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
     class AlertHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         // TODO: need to keep value here? Same for all other holders
-        lateinit var header: DummyAlertDataProvider.AlertHeader
+        lateinit var header: AlertHeader
 
-        fun setData(header: DummyAlertDataProvider.AlertHeader) {
+        fun setData(header: AlertHeader) {
             this.header = header
 
             // TODO: android extensions
@@ -73,7 +70,7 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
             val coinPrice = itemView.findViewById(R.id.coinPrice) as TextView
             
             coinTitle.text = header.name
-            coinPrice.text = FloatToCurrencyFormatter(header.currentPrice).format()
+            coinPrice.text = FloatToCurrencyFormatter(header.currentPrice).formatWithDollarSign()
         }
     }
 
@@ -112,25 +109,29 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
 
         private fun buildTriggerText(): String {
             val trigger = alert.trigger
-            var returnText = if (trigger.type == CHANGE) {
-                when {
+            var returnText: String
+
+            if (trigger.type == Type.CHANGE) {
+                returnText = when {
                     trigger.positive -> "+"
                     else -> "-"
                 }
+                
+                returnText += FloatToCurrencyFormatter(alert.trigger.triggerAmount)
+                        .formatToTwoDecimals()
+                
+                return "$returnText%"
             } else {
-                when {
+                returnText = when {
                     trigger.positive -> ">"
                     else -> "<"
                 }
+                
+                returnText += FloatToCurrencyFormatter(alert.trigger.triggerAmount)
+                        .formatWithDollarSign()
+                
+                return returnText
             }
-            
-            returnText += FloatToCurrencyFormatter(alert.trigger.triggerAmount).format()
-            
-            if (trigger.type == CHANGE) {
-                returnText += "%"
-            }
-            
-            return returnText
         }
     }
 }
