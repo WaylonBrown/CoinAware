@@ -130,18 +130,18 @@ class DummyAlertDataProvider {
                 positive = true,
                 triggerAmount = 500f), recurring = true, active = true)))
         dataSet.add(AlertListItem(item = Alert(AlertTrigger(AlertTrigger.Type.CHANGE,
-                positive = true,
+                positive = false,
                 triggerAmount = 10f), recurring = false, active = false)))
 
         dataSet.add(AlertListItem(header = AlertHeader("BTC", 9023.23f)))
         dataSet.add(AlertListItem(item = Alert(AlertTrigger(AlertTrigger.Type.VALUE,
-                positive = true,
+                positive = false,
                 triggerAmount = 10000f), recurring = true, active = true)))
 
         dataSet.add(AlertListItem(header = AlertHeader("LTC", 87.43f)))
-        dataSet.add(AlertListItem(item = Alert(AlertTrigger(AlertTrigger.Type.VALUE,
+        dataSet.add(AlertListItem(item = Alert(AlertTrigger(AlertTrigger.Type.CHANGE,
                 positive = true,
-                triggerAmount = 100f), recurring = false, active = true)))
+                triggerAmount = 25f), recurring = false, active = true)))
         return dataSet
     }
 }

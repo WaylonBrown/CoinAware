@@ -99,12 +99,12 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
             
             greaterOrLessText.text = when {
                 alert.trigger.type == Type.CHANGE -> when {
-                    alert.trigger.positive -> "Increase of"
-                    else -> "Decrease of"
+                    alert.trigger.positive -> "▲ Increase of"
+                    else -> "▼ Decrease of"
                 }
                 else -> when {
-                    alert.trigger.positive -> "Greater than"
-                    else -> "Less than"
+                    alert.trigger.positive -> "▲ Greater than"
+                    else -> "▼ Less than"
                 }
             }
             triggerText.text = buildTriggerText()
