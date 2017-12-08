@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.alerts
+package com.waylonbrown.coinaware.insights
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -6,15 +6,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.alerts.AlertsAdapter.AlertItemViewHolder
-import com.waylonbrown.coinaware.dummy.DummyAlertsDataProvider
+import com.waylonbrown.coinaware.dummy.DummyInsightsDataProvider
 import kotlinx.android.synthetic.main.page_recyclerview.*
 
 // TODO: base adapter fragment
-class AlertsFragment : Fragment(), AlertItemViewHolder.ListItemClickedListener {
-    private lateinit var alertsAdapter: AlertsAdapter
+class InsightsFragment : Fragment() {
+    
+    lateinit var insightsAdapter: InsightsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, 
                               container: ViewGroup?, 
@@ -23,16 +22,11 @@ class AlertsFragment : Fragment(), AlertItemViewHolder.ListItemClickedListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        alertsAdapter = AlertsAdapter(layoutInflater, this)
-        recyclerView.adapter = alertsAdapter
-        alertsAdapter.updateItems(DummyAlertsDataProvider().getDummyData())
-
-    }
-
-    override fun itemClicked(data: Alert) {
-        Toast.makeText(activity, "Clicked", Toast.LENGTH_LONG).show()
+        insightsAdapter = InsightsAdapter(layoutInflater)
+        recyclerView.adapter = insightsAdapter
+        insightsAdapter.updateItems(setOf(DummyInsightsDataProvider().getDummyData()))
     }
 }

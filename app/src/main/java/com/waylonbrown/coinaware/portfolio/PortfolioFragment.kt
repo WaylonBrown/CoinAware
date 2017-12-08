@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.waylonbrown.coinaware.R
 import com.waylonbrown.coinaware.data.CoinPriceFetcher
-import com.waylonbrown.coinaware.dummy.DummyChartDataProvider
-import com.waylonbrown.coinaware.dummy.DummyChartDataProvider.PortfolioListItem
+import com.waylonbrown.coinaware.dummy.DummyPortfolioDataProvider
+import com.waylonbrown.coinaware.dummy.DummyPortfolioDataProvider.PortfolioListItem
 import com.waylonbrown.coinaware.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder
 import com.waylonbrown.coinaware.retrofit.CryptoCompareService
 import kotlinx.android.synthetic.main.page_recyclerview.*
@@ -38,7 +38,7 @@ class PortfolioFragment : Fragment(), PortfolioHeaderViewHolder.ListItemClickedL
 //                (recyclerView.layoutManager as LinearLayoutManager).orientation)
 //        dividerItemDecoration.setDrawable(activity.resources.getDrawable())
 //        recyclerView.addItemDecoration(dividerItemDecoration)
-        portfolioAdapter.updateItems(DummyChartDataProvider().getDummyData())
+        portfolioAdapter.updateItems(DummyPortfolioDataProvider().getDummyData())
         
         swipeRefreshLayout.setOnRefreshListener { 
             CoinPriceFetcher()

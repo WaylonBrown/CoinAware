@@ -7,7 +7,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.dummy.DummyChartDataProvider.PortfolioListItem
+import com.waylonbrown.coinaware.dummy.DummyPortfolioDataProvider.PortfolioListItem
 import com.waylonbrown.coinaware.util.FloatToCurrencyFormatter
 
 class PortfolioChartConfig(val context: Context,

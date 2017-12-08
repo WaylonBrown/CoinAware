@@ -7,7 +7,7 @@ import com.waylonbrown.coinaware.alerts.AlertListItem
 import com.waylonbrown.coinaware.alerts.AlertTrigger
 import java.util.*
 
-class DummyChartDataProvider {
+class DummyPortfolioDataProvider {
 
     data class PortfolioListItem(val data: List<Entry>, val positiveTrend: Boolean)
 
@@ -120,7 +120,103 @@ class DummyChartDataProvider {
     }
 }
 
-class DummyAlertDataProvider {
+class DummyInsightsDataProvider {
+
+    data class InsightsListItem(val coinList: List<CoinWithPrices>)
+    
+    data class CoinWithPrices(val name: String, val prices: List<Entry>)
+
+    fun getDummyData(): InsightsListItem {
+        val coin1Prices = getChartData1()
+        val coin1 = CoinWithPrices("BTC", coin1Prices)
+        val coin2Prices = getChartData2()
+        val coin2 = CoinWithPrices("ETH", coin2Prices)
+        val coin3Prices = getChartData3()
+        val coin3 = CoinWithPrices("LTC", coin3Prices)
+        
+        return InsightsListItem(listOf(coin1, coin2, coin3))
+    }
+
+    private fun getChartData1(): List<Entry> {
+        val list = mutableListOf<Entry>()
+        list.add(Entry(0F, 10F))
+        list.add(Entry(1F, 8F))
+        list.add(Entry(2F, 7F))
+        list.add(Entry(3F, 8F))
+        list.add(Entry(4F, 7F))
+        list.add(Entry(5F, 7F))
+        list.add(Entry(6F, 10F))
+        list.add(Entry(7F, 12F))
+        list.add(Entry(8F, 13F))
+        list.add(Entry(9F, 17F))
+        list.add(Entry(10F, 16F))
+        list.add(Entry(11F, 15F))
+        list.add(Entry(12F, 12F))
+        list.add(Entry(13F, 10F))
+        list.add(Entry(14F, 11F))
+        list.add(Entry(15F, 11F))
+        list.add(Entry(16F, 12F))
+        list.add(Entry(17F, 13F))
+        list.add(Entry(18F, 12F))
+        list.add(Entry(19F, 10F))
+        list.add(Entry(20F, 8F))
+        return list
+    }
+
+    private fun getChartData2(): List<Entry> {
+        val list = mutableListOf<Entry>()
+        list.add(Entry(0F, 8F))
+        list.add(Entry(1F, 9F))
+        list.add(Entry(2F, 10F))
+        list.add(Entry(3F, 10F))
+        list.add(Entry(4F, 8F))
+        list.add(Entry(5F, 10F))
+        list.add(Entry(6F, 12F))
+        list.add(Entry(7F, 14F))
+        list.add(Entry(8F, 13F))
+        list.add(Entry(9F, 12F))
+        list.add(Entry(10F, 11F))
+        list.add(Entry(11F, 9F))
+        list.add(Entry(12F, 10F))
+        list.add(Entry(13F, 11F))
+        list.add(Entry(14F, 13F))
+        list.add(Entry(15F, 15F))
+        list.add(Entry(16F, 16F))
+        list.add(Entry(17F, 16F))
+        list.add(Entry(18F, 15F))
+        list.add(Entry(19F, 16F))
+        list.add(Entry(20F, 15F))
+        return list
+    }
+
+    private fun getChartData3(): List<Entry> {
+        val list = mutableListOf<Entry>()
+        list.add(Entry(0F, 17F))
+        list.add(Entry(1F, 18F))
+        list.add(Entry(2F, 16F))
+        list.add(Entry(3F, 17F))
+        list.add(Entry(4F, 18F))
+        list.add(Entry(5F, 19F))
+        list.add(Entry(6F, 19F))
+        list.add(Entry(7F, 17F))
+        list.add(Entry(8F, 14F))
+        list.add(Entry(9F, 9F))
+        list.add(Entry(10F, 10F))
+        list.add(Entry(11F, 12F))
+        list.add(Entry(12F, 11F))
+        list.add(Entry(13F, 10F))
+        list.add(Entry(14F, 12F))
+        list.add(Entry(15F, 13F))
+        list.add(Entry(16F, 14F))
+        list.add(Entry(17F, 12F))
+        list.add(Entry(18F, 14F))
+        list.add(Entry(19F, 17F))
+        list.add(Entry(20F, 19F))
+        return list
+    }
+}
+
+class DummyAlertsDataProvider {
 
     fun getDummyData(): List<AlertListItem> {
         val dataSet = mutableListOf<AlertListItem>()

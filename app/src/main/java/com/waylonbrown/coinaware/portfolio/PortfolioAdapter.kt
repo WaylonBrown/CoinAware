@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
 import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.dummy.DummyChartDataProvider.PortfolioListItem
+import com.waylonbrown.coinaware.dummy.DummyPortfolioDataProvider.PortfolioListItem
 import com.waylonbrown.coinaware.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder.ListItemClickedListener
 
 // TODO: remove this comment when done

@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.waylonbrown.coinaware.alerts.AlertsFragment
-import com.waylonbrown.coinaware.dummy.DummyFragment
+import com.waylonbrown.coinaware.insights.InsightsFragment
 import com.waylonbrown.coinaware.portfolio.PortfolioFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -53,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
         
         override fun getItem(position: Int): Fragment = when (position) {
             0 -> PortfolioFragment()
-            1 -> DummyFragment()
+            1 -> InsightsFragment()
             else -> AlertsFragment()
         }
 
