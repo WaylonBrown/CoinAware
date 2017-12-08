@@ -8,15 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.waylonbrown.coinaware.R
+import com.waylonbrown.coinaware.data.CoinPriceFetcher
 import com.waylonbrown.coinaware.dummy.DummyChartDataProvider
 import com.waylonbrown.coinaware.dummy.DummyChartDataProvider.PortfolioListItem
 import com.waylonbrown.coinaware.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder
+import com.waylonbrown.coinaware.retrofit.CryptoCompareService
 import kotlinx.android.synthetic.main.page_recyclerview.*
 
 // TODO: base adapter fragment
 class PortfolioFragment : Fragment(), PortfolioHeaderViewHolder.ListItemClickedListener {
     
     lateinit var portfolioAdapter: PortfolioAdapter
+    lateinit var cryptoService: CryptoCompareService // TODO: dagger
+    
 
     override fun onCreateView(inflater: LayoutInflater, 
                               container: ViewGroup?, 
@@ -36,10 +40,29 @@ class PortfolioFragment : Fragment(), PortfolioHeaderViewHolder.ListItemClickedL
 //        recyclerView.addItemDecoration(dividerItemDecoration)
         portfolioAdapter.updateItems(DummyChartDataProvider().getDummyData())
         
+        swipeRefreshLayout.setOnRefreshListener { 
+            CoinPriceFetcher()
+                    .getFromBTCtoUSDPrice(object : CoinPriceFetcher.FetchCoinPriceListener {
+                        override fun coinPriceFetched(price: Float) {
+                            onCoinPriceFetch(price)
+                            swipeRefreshLayout.isRefreshing = false
+                        }
+
+                        override fun onFetchFail() {
+                            Toast.makeText(activity, "Failure fetching coin price", 
+                                    Toast.LENGTH_SHORT).show()
+                            swipeRefreshLayout.isRefreshing = false
+                        }
+                    })
+        }
     }
 
+    fun onCoinPriceFetch(price: Float) {
+        Toast.makeText(activity, "$price", Toast.LENGTH_SHORT).show()
+    }
+    
     override fun itemClicked(data: PortfolioListItem) {
-        Toast.makeText(activity, "Clicked", Toast.LENGTH_LONG).show()
+        Toast.makeText(activity, "Clicked", Toast.LENGTH_SHORT).show()
     }
 
 }

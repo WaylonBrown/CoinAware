@@ -11,8 +11,8 @@ def versionBuild = 0 // bump for dogfood builds, public betas, etc.
 // Duplicate dependency and tools versions
 def versions = [
         sdk: 27,
-        support: "27.0.1",
-        arch: "1.0.0-rc1",
+        support: "27.0.2",
+        arch: "1.0.0",
         butterknife: "8.4.0",
         retrofit: "2.1.0",
         dagger: "2.9",
@@ -93,7 +93,7 @@ android {
         implementation "com.android.support:design:$versions.support"
         implementation "com.android.support:cardview-v7:$versions.support"
         implementation "com.android.support.constraint:constraint-layout:1.0.2"
-        kapt 'com.android.databinding:compiler:3.0.0'
+        kapt 'com.android.databinding:compiler:3.0.1'
         // Architecture components
         implementation "android.arch.lifecycle:runtime:$versions.arch"
         implementation "android.arch.lifecycle:extensions:$versions.arch"
