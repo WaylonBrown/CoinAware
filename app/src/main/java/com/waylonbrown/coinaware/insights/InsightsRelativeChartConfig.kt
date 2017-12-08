@@ -1,6 +1,7 @@
 package com.waylonbrown.coinaware.insights
 
 import android.content.Context
+import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.YAxis
@@ -18,7 +19,7 @@ class InsightsRelativeChartConfig(val context: Context,
         
         // TODO: do this for performance
 //        if (chart.data == null || chart.data.dataSetCount == 0) {
-            initializeChart(backgroundColor)
+            initializeChart()
 //        } else {
 //            updateData(backgroundColor)
 //        }
@@ -26,7 +27,7 @@ class InsightsRelativeChartConfig(val context: Context,
         chart.setBackgroundColor(backgroundColor)
     }
 
-    private fun initializeChart(backgroundColor: Int) {
+    private fun initializeChart() {
         chart.setTouchEnabled(false)
         chart.setViewPortOffsets(-1F, -1F, 0F, 0F)
         chart.description = null
@@ -41,22 +42,23 @@ class InsightsRelativeChartConfig(val context: Context,
         val coin2DataSet = LineDataSet(coin2.prices, coin2.name)
         val coin3DataSet = LineDataSet(coin3.prices, coin3.name)
         
-        setConfigForDataSet(coin1DataSet)
-        setConfigForDataSet(coin2DataSet)
-        setConfigForDataSet(coin3DataSet)
+        setConfigForDataSet(coin1DataSet, ContextCompat.getColor(context, R.color.green))
+        setConfigForDataSet(coin2DataSet, ContextCompat.getColor(context, R.color.red))
+        setConfigForDataSet(coin3DataSet, ContextCompat.getColor(context, R.color.colorPrimary))
 
         val lineData = LineData(listOf(coin1DataSet, coin2DataSet, coin3DataSet))
         chart.data = lineData
     }
 
-    private fun setConfigForDataSet(dataSet: LineDataSet) {
-        dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+    private fun setConfigForDataSet(dataSet: LineDataSet, @ColorInt color: Int) {
+        dataSet.mode = LineDataSet.Mode.LINEAR
         dataSet.setDrawCircles(false)
         dataSet.setDrawValues(false)
         dataSet.setDrawFilled(false)
-        dataSet.lineWidth = 5f
-        dataSet.color = ContextCompat.getColor(context, R.color.darkBackground)
+        dataSet.lineWidth = 2f
+        dataSet.color = color
 
+        // TODO: do the below for each one or just once?
         val xAxis = chart.xAxis
         xAxis.setDrawGridLines(false)
 
