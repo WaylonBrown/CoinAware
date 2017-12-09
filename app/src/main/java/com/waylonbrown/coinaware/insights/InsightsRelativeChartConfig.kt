@@ -42,21 +42,30 @@ class InsightsRelativeChartConfig(val context: Context,
         val coin2DataSet = LineDataSet(coin2.prices, coin2.name)
         val coin3DataSet = LineDataSet(coin3.prices, coin3.name)
         
-        setConfigForDataSet(coin1DataSet, ContextCompat.getColor(context, R.color.green))
-        setConfigForDataSet(coin2DataSet, ContextCompat.getColor(context, R.color.red))
-        setConfigForDataSet(coin3DataSet, ContextCompat.getColor(context, R.color.colorPrimary))
+        setConfigForDataSet(coin1DataSet, 
+                ContextCompat.getColor(context, R.color.green),
+                ContextCompat.getColor(context, R.color.lightGreenTransparent))
+        setConfigForDataSet(coin2DataSet, 
+                ContextCompat.getColor(context, R.color.red), 
+                ContextCompat.getColor(context, R.color.lightGreenTransparent))
+        setConfigForDataSet(coin3DataSet, 
+                ContextCompat.getColor(context, R.color.colorPrimary), 
+                ContextCompat.getColor(context, R.color.lightGreenTransparent))
 
         val lineData = LineData(listOf(coin1DataSet, coin2DataSet, coin3DataSet))
         chart.data = lineData
     }
 
-    private fun setConfigForDataSet(dataSet: LineDataSet, @ColorInt color: Int) {
-        dataSet.mode = LineDataSet.Mode.LINEAR
+    private fun setConfigForDataSet(dataSet: LineDataSet, 
+                                    @ColorInt lineColor: Int, 
+                                    @ColorInt fillColor: Int) {
+        dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
         dataSet.setDrawCircles(false)
         dataSet.setDrawValues(false)
-        dataSet.setDrawFilled(false)
-        dataSet.lineWidth = 2f
-        dataSet.color = color
+        dataSet.setDrawFilled(true)
+        dataSet.fillColor = fillColor
+        dataSet.lineWidth = 3f
+        dataSet.color = lineColor
 
         // TODO: do the below for each one or just once?
         val xAxis = chart.xAxis
@@ -73,12 +82,14 @@ class InsightsRelativeChartConfig(val context: Context,
         yAxisRight.setDrawZeroLine(false)
         yAxisRight.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
         yAxisRight.setDrawLabels(false)
-//        yAxisRight.setValueFormatter {
-//            value, axis -> FloatToCurrencyFormatter(value).formatWithDollarSign()
-//        }
 
-//        val legend = chart.legend
-//        legend.isEnabled = false
+        val legend = chart.legend
+        // TODO: use resources (DP)
+        legend.textSize = 16f
+        legend.isWordWrapEnabled = true
+        legend.setDrawInside(false)
+//        legend.xEntrySpace = 16f
+//        legend.typeface =
     }
 
 //    private fun updateData(backgroundColor: Int) {
