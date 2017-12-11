@@ -18,15 +18,16 @@
     <color name="green">#2e7d32</color>
     <color name="greenDark">#002b00</color>
     <color name="greenALittleLessDark">#003500</color>
-    <color name="lightGreenTransparent">#7734963c</color>
-
 
     <color name="red">#af2a02</color>
     <color name="redDark">#470000</color>
     <color name="redALittleLessDark">#560000</color>
-
-
+    
     <color name="darkestBackground">#000a12</color>
     <color name="darkBackground">#1f2b30</color>
+
+    <color name="chartLineGreen">#43a047</color>
+    <color name="chartLineOrange">#fb8c00</color>
+    <color name="chartLineGray">#546e7a</color>
     
 </resources>

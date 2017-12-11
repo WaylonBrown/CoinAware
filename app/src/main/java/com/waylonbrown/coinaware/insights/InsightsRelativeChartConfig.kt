@@ -42,29 +42,20 @@ class InsightsRelativeChartConfig(val context: Context,
         val coin2DataSet = LineDataSet(coin2.prices, coin2.name)
         val coin3DataSet = LineDataSet(coin3.prices, coin3.name)
         
-        setConfigForDataSet(coin1DataSet, 
-                ContextCompat.getColor(context, R.color.green),
-                ContextCompat.getColor(context, R.color.lightGreenTransparent))
-        setConfigForDataSet(coin2DataSet, 
-                ContextCompat.getColor(context, R.color.red), 
-                ContextCompat.getColor(context, R.color.lightGreenTransparent))
-        setConfigForDataSet(coin3DataSet, 
-                ContextCompat.getColor(context, R.color.colorPrimary), 
-                ContextCompat.getColor(context, R.color.lightGreenTransparent))
+        setConfigForDataSet(coin1DataSet, ContextCompat.getColor(context, R.color.chartLineGreen))
+        setConfigForDataSet(coin2DataSet, ContextCompat.getColor(context, R.color.chartLineOrange))
+        setConfigForDataSet(coin3DataSet, ContextCompat.getColor(context, R.color.chartLineGray))
 
         val lineData = LineData(listOf(coin1DataSet, coin2DataSet, coin3DataSet))
         chart.data = lineData
     }
 
-    private fun setConfigForDataSet(dataSet: LineDataSet, 
-                                    @ColorInt lineColor: Int, 
-                                    @ColorInt fillColor: Int) {
+    private fun setConfigForDataSet(dataSet: LineDataSet, @ColorInt lineColor: Int) {
         dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
         dataSet.setDrawCircles(false)
         dataSet.setDrawValues(false)
-        dataSet.setDrawFilled(true)
-        dataSet.fillColor = fillColor
-        dataSet.lineWidth = 3f
+        dataSet.setDrawFilled(false)
+        dataSet.lineWidth = 2f
         dataSet.color = lineColor
 
         // TODO: do the below for each one or just once?
@@ -84,12 +75,11 @@ class InsightsRelativeChartConfig(val context: Context,
         yAxisRight.setDrawLabels(false)
 
         val legend = chart.legend
-        // TODO: use resources (DP)
-        legend.textSize = 16f
-        legend.isWordWrapEnabled = true
-        legend.setDrawInside(false)
-//        legend.xEntrySpace = 16f
-//        legend.typeface =
+        legend.isEnabled = false
+//        // TODO: use resources (DP)
+//        legend.textSize = 16f
+//        legend.isWordWrapEnabled = true
+//        legend.setDrawInside(false)
     }
 
 //    private fun updateData(backgroundColor: Int) {
