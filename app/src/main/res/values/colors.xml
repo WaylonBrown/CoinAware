@@ -26,8 +26,8 @@
     <color name="darkestBackground">#000a12</color>
     <color name="darkBackground">#1f2b30</color>
 
-    <color name="chartLineGreen">#43a047</color>
-    <color name="chartLineOrange">#fb8c00</color>
-    <color name="chartLineGray">#546e7a</color>
+    <color name="chartLineBlue">#1976d2</color>
+    <color name="chartLineRed">#f44336</color>
+    <color name="chartLineYellow">#fbc02d</color>
     
 </resources>

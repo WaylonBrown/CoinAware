@@ -42,9 +42,9 @@ class InsightsRelativeChartConfig(val context: Context,
         val coin2DataSet = LineDataSet(coin2.prices, coin2.name)
         val coin3DataSet = LineDataSet(coin3.prices, coin3.name)
         
-        setConfigForDataSet(coin1DataSet, ContextCompat.getColor(context, R.color.chartLineGreen))
-        setConfigForDataSet(coin2DataSet, ContextCompat.getColor(context, R.color.chartLineOrange))
-        setConfigForDataSet(coin3DataSet, ContextCompat.getColor(context, R.color.chartLineGray))
+        setConfigForDataSet(coin1DataSet, ContextCompat.getColor(context, R.color.chartLineBlue))
+        setConfigForDataSet(coin2DataSet, ContextCompat.getColor(context, R.color.chartLineRed))
+        setConfigForDataSet(coin3DataSet, ContextCompat.getColor(context, R.color.chartLineYellow))
 
         val lineData = LineData(listOf(coin1DataSet, coin2DataSet, coin3DataSet))
         chart.data = lineData
@@ -55,7 +55,7 @@ class InsightsRelativeChartConfig(val context: Context,
         dataSet.setDrawCircles(false)
         dataSet.setDrawValues(false)
         dataSet.setDrawFilled(false)
-        dataSet.lineWidth = 2f
+        dataSet.lineWidth = 3f
         dataSet.color = lineColor
 
         // TODO: do the below for each one or just once?
