@@ -96,6 +96,7 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
             val triggerText = itemView.findViewById(R.id.trigger) as TextView
             val recurringText = itemView.findViewById(R.id.recurring) as TextView
             val toggleButton = itemView.findViewById(R.id.toggleButton) as SwitchCompat
+            val divider = itemView.findViewById(R.id.divider) as View
             
             greaterOrLessText.text = when {
                 alert.trigger.type == Type.CHANGE -> when {
@@ -116,6 +117,12 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
                 alert.active -> true
                 else -> false
             }
+            
+            setDividerVisibility(divider)
+        }
+
+        private fun setDividerVisibility(divider: View) {
+            // TODO
         }
 
         private fun buildTriggerText(): String {
