@@ -5,6 +5,10 @@ import com.waylonbrown.coinaware.alerts.Alert
 import com.waylonbrown.coinaware.alerts.AlertHeader
 import com.waylonbrown.coinaware.alerts.AlertListItem
 import com.waylonbrown.coinaware.alerts.AlertTrigger
+import com.waylonbrown.coinaware.insights.CoinWithPrices
+import com.waylonbrown.coinaware.insights.InsightsHeader
+import com.waylonbrown.coinaware.insights.InsightsListItem
+import com.waylonbrown.coinaware.insights.InsightsRelativeGraph
 import java.util.*
 
 class DummyPortfolioDataProvider {
@@ -122,11 +126,7 @@ class DummyPortfolioDataProvider {
 
 class DummyInsightsDataProvider {
 
-    data class InsightsListItem(val coinList: List<CoinWithPrices>)
-    
-    data class CoinWithPrices(val name: String, val prices: List<Entry>)
-
-    fun getDummyData(): InsightsListItem {
+    fun getDummyData(): List<InsightsListItem> {
         val coin1Prices = getChartData1()
         val coin1 = CoinWithPrices("BTC", coin1Prices)
         val coin2Prices = getChartData2()
@@ -134,7 +134,11 @@ class DummyInsightsDataProvider {
         val coin3Prices = getChartData3()
         val coin3 = CoinWithPrices("LTC", coin3Prices)
         
-        return InsightsListItem(listOf(coin1, coin2, coin3))
+        val header = InsightsHeader("Relative Coin Performance")
+        val graph = InsightsRelativeGraph(listOf(coin1, coin2, coin3))
+        
+        return listOf(InsightsListItem(header = header), 
+                InsightsListItem(graph = graph))
     }
 
     private fun getChartData1(): List<Entry> {

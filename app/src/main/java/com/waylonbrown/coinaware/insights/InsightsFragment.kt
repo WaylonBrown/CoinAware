@@ -27,6 +27,6 @@ class InsightsFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         insightsAdapter = InsightsAdapter(layoutInflater)
         recyclerView.adapter = insightsAdapter
-        insightsAdapter.updateItems(setOf(DummyInsightsDataProvider().getDummyData()))
+        insightsAdapter.updateItems(DummyInsightsDataProvider().getDummyData())
     }
 }

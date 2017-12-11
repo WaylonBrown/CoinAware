@@ -8,7 +8,6 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.dummy.DummyInsightsDataProvider.InsightsListItem
 
 class InsightsRelativeChartConfig(val context: Context,
                                   val chart: LineChart,
@@ -34,9 +33,9 @@ class InsightsRelativeChartConfig(val context: Context,
         chart.isAutoScaleMinMaxEnabled = true
         chart.setDrawBorders(false)
         
-        val coin1 = item.coinList[0]
-        val coin2 = item.coinList[1]
-        val coin3 = item.coinList[2]
+        val coin1 = (item.graph as InsightsRelativeGraph).coinList[0]
+        val coin2 = item.graph.coinList[1]
+        val coin3 = item.graph.coinList[2]
 
         val coin1DataSet = LineDataSet(coin1.prices, coin1.name)
         val coin2DataSet = LineDataSet(coin2.prices, coin2.name)
