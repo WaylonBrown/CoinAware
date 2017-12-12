@@ -51,8 +51,16 @@ class AlertsAdapter(private val layoutInflater: LayoutInflater,
             holder.setData(items[position].header!!)
         } else if (holder is AlertItemViewHolder) {
             // Null check has already happened
-            holder.setData(items[position].item!!)
+            holder.setData(items[position].item!!, isDividerVisibleAtPosition(position))
         }
+    }
+
+    private fun isDividerVisibleAtPosition(position: Int): Boolean {
+        if (position == items.lastIndex ||
+                items[position + 1].isHeader()) {
+            return false
+        }
+        return true
     }
 
     override fun getItemCount(): Int = items.size
@@ -87,7 +95,7 @@ class AlertsAdapter(private val layoutInflater: LayoutInflater,
             fun itemClicked(data: Alert)
         }
 
-        fun setData(alert: Alert) {
+        fun setData(alert: Alert, dividerVisible: Boolean) {
             this.alert = alert
 
             val greaterOrLessText = itemView.findViewById(R.id.greaterOrLess) as TextView
@@ -116,11 +124,10 @@ class AlertsAdapter(private val layoutInflater: LayoutInflater,
                 else -> false
             }
             
-            setDividerVisibility(divider)
-        }
-
-        private fun setDividerVisibility(divider: View) {
-            // TODO
+            divider.visibility = when(dividerVisible) {
+                true -> View.VISIBLE
+                else -> View.GONE
+            }
         }
 
         private fun buildTriggerText(): String {
