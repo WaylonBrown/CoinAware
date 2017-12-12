@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.dummy.DummyInsightsDataProvider
+import com.waylonbrown.coinaware.data.DummyInsightsDataProvider
 import kotlinx.android.synthetic.main.page_recyclerview.*
 
 // TODO: base adapter fragment

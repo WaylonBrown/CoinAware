@@ -17,12 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- TODO: fix manual minheight -->
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="300dp" />
+            android:minHeight="@dimen/insights_chart_height" />
 
     </android.support.constraint.ConstraintLayout>
 

@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.dummy
+package com.waylonbrown.coinaware.data
 
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieEntry

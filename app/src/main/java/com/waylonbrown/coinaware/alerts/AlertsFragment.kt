@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.waylonbrown.coinaware.R
 import com.waylonbrown.coinaware.alerts.AlertsAdapter.AlertItemViewHolder
-import com.waylonbrown.coinaware.dummy.DummyAlertsDataProvider
+import com.waylonbrown.coinaware.data.DummyAlertsDataProvider
 import kotlinx.android.synthetic.main.page_recyclerview.*
 
 // TODO: base adapter fragment

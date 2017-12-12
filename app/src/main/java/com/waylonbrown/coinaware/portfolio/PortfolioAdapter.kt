@@ -1,14 +1,12 @@
 package com.waylonbrown.coinaware.portfolio
 
 import android.support.v7.widget.RecyclerView
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
 import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.dummy.DummyPortfolioDataProvider.PortfolioListItem
+import com.waylonbrown.coinaware.data.DummyPortfolioDataProvider.PortfolioListItem
 import com.waylonbrown.coinaware.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder.ListItemClickedListener
 
 // TODO: remove this comment when done
@@ -37,7 +35,7 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
             val view = layoutInflater.inflate(R.layout.portfolio_item_header, parent, false)
             return PortfolioHeaderViewHolder(view, itemClickedListener)
         } else {
-            val view = layoutInflater.inflate(R.layout.portfolio_item_compact, parent, false)
+            val view = layoutInflater.inflate(R.layout.portfolio_item, parent, false)
             return PortfolioItemViewHolder(view)
         }
     }
@@ -90,12 +88,6 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
 
             val chart = itemView.findViewById<LineChart>(R.id.chart)
             PortfolioChartConfig(itemView.context, chart, item, false).apply()
-            
-            val coinHoldings = itemView.findViewById<TextView>(R.id.coinHoldings)
-            // TODO: not on compact view
-            if (coinHoldings != null) {
-                coinHoldings.text = Html.fromHtml("3.924 ETH = <b>$1323.12</b>")
-            }
         }
     }
 }

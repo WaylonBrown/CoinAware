@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.waylonbrown.coinaware.R
 import com.waylonbrown.coinaware.data.CoinPriceFetcher
-import com.waylonbrown.coinaware.dummy.DummyPortfolioDataProvider
-import com.waylonbrown.coinaware.dummy.DummyPortfolioDataProvider.PortfolioListItem
+import com.waylonbrown.coinaware.data.DummyPortfolioDataProvider
+import com.waylonbrown.coinaware.data.DummyPortfolioDataProvider.PortfolioListItem
 import com.waylonbrown.coinaware.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder
 import com.waylonbrown.coinaware.retrofit.CryptoCompareService
 import kotlinx.android.synthetic.main.page_recyclerview.*

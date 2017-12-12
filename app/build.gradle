@@ -50,7 +50,6 @@ android {
         }
     }
 
-    // TODO: use flavor dimensions
     flavorDimensions "default"
     productFlavors {
         online {

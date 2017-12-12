@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
 import com.waylonbrown.coinaware.R
@@ -58,8 +59,10 @@ class InsightsAdapter(val layoutInflater: LayoutInflater)
         fun setData(data: InsightsListItem) {
             this.item = data
 //
-//            val chart = itemView.findViewById<LineChart>(R.id.chart)
-//            InsightsRelativeChartConfig(itemView.context, chart, item).apply()
+            val title = itemView.findViewById(R.id.headerTitle) as TextView
+            if (item.header != null) {
+                title.text = item.header!!.name
+            }
         }
     }
 

@@ -9,6 +9,6 @@ class FloatToCurrencyFormatter(val value: Float) {
     }
 
     fun formatToTwoDecimals(): String {
-        return DecimalFormat("#.00").format(value)
+        return DecimalFormat("#,###.00").format(value)
     }
 }

@@ -10,14 +10,13 @@
     android:background="@color/lightgray">
 
     <TextView
-        android:id="@+id/coinTitle"
+        android:id="@+id/headerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_light"
-        android:text="Relative Coin Performance"
         android:textColor="@color/textColorDark"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
