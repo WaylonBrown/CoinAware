@@ -37,7 +37,7 @@ class InsightsPieChartConfig(val context: Context,
         val coin2 = pieChartModel.coinList[1]
         val coin3 = pieChartModel.coinList[2]
         
-        val dataSet = PieDataSet(pieChartModel.coinList, "BLAH?")
+        val dataSet = PieDataSet(pieChartModel.coinList, "Unused")
         
         val color1 = ContextCompat.getColor(context, R.color.chartLineBlue)
         val color2 = ContextCompat.getColor(context, R.color.chartLineRed)

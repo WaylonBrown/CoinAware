@@ -13,8 +13,8 @@ import com.waylonbrown.coinaware.util.FloatToCurrencyFormatter
 
 // TODO: remove this comment when done
 // Viewholders example: https://jonfhancock.com/your-viewholders-are-dumb-make-em-not-dumb-82e6f73f630c
-class AlertsAdapter(val layoutInflater: LayoutInflater,
-                    val itemClickedListener: ListItemClickedListener) 
+class AlertsAdapter(private val layoutInflater: LayoutInflater,
+                    private val itemClickedListener: ListItemClickedListener) 
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var items: List<AlertListItem> = mutableListOf()
@@ -65,7 +65,6 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
         fun setData(header: AlertHeader) {
             this.header = header
 
-            // TODO: android extensions
             val coinTitle = itemView.findViewById(R.id.coinTitle) as TextView
             val coinPrice = itemView.findViewById(R.id.coinPrice) as TextView
             
@@ -91,7 +90,6 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
         fun setData(alert: Alert) {
             this.alert = alert
 
-            // TODO: android extensions
             val greaterOrLessText = itemView.findViewById(R.id.greaterOrLess) as TextView
             val triggerText = itemView.findViewById(R.id.trigger) as TextView
             val recurringText = itemView.findViewById(R.id.recurring) as TextView

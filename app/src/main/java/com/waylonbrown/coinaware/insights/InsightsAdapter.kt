@@ -58,7 +58,6 @@ class InsightsAdapter(val layoutInflater: LayoutInflater)
         fun setData(data: InsightsListItem) {
             this.item = data
 //
-//            // TODO: android extensions
 //            val chart = itemView.findViewById<LineChart>(R.id.chart)
 //            InsightsRelativeChartConfig(itemView.context, chart, item).apply()
         }
@@ -76,7 +75,6 @@ class InsightsAdapter(val layoutInflater: LayoutInflater)
         fun setData(data: InsightsListItem) {
             this.item = data
 
-            // TODO: android extensions
             val chart = itemView.findViewById<LineChart>(R.id.chart)
             InsightsRelativeChartConfig(itemView.context, chart, item).apply()
         }
@@ -94,7 +92,6 @@ class InsightsAdapter(val layoutInflater: LayoutInflater)
         fun setData(data: InsightsListItem) {
             this.item = data
 
-            // TODO: android extensions
             val chart = itemView.findViewById<PieChart>(R.id.chart)
             InsightsPieChartConfig(itemView.context, chart, item.graph as InsightsPieChart).apply()
         }

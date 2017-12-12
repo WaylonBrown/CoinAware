@@ -71,7 +71,6 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
         fun setData(data: PortfolioListItem) {
             this.item = data
 
-            // TODO: android extensions
             val chart = itemView.findViewById<LineChart>(R.id.chart)
             PortfolioChartConfig(itemView.context, chart, item, true).apply()
         }
@@ -89,7 +88,6 @@ class PortfolioAdapter(val layoutInflater: LayoutInflater,
         fun setData(data: PortfolioListItem) {
             this.item = data
 
-            // TODO: android extensions
             val chart = itemView.findViewById<LineChart>(R.id.chart)
             PortfolioChartConfig(itemView.context, chart, item, false).apply()
             
