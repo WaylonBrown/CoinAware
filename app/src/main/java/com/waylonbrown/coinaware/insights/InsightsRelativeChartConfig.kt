@@ -83,7 +83,7 @@ class InsightsRelativeChartConfig(val context: Context,
 
 //    private fun updateData(backgroundColor: Int) {
 //        val dataSet = chart.data.getDataSetByIndex(0) as LineDataSet
-//        dataSet.values = item.data
+//        dataSet.prices = item.data
 //        dataSet.color = backgroundColor
 //        chart.data.notifyDataChanged()
 //        chart.notifyDataSetChanged()

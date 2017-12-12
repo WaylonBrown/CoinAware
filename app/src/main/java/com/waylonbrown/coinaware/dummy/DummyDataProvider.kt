@@ -1,6 +1,7 @@
 package com.waylonbrown.coinaware.dummy
 
 import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.PieEntry
 import com.waylonbrown.coinaware.alerts.Alert
 import com.waylonbrown.coinaware.alerts.AlertHeader
 import com.waylonbrown.coinaware.alerts.AlertListItem
@@ -8,6 +9,7 @@ import com.waylonbrown.coinaware.alerts.AlertTrigger
 import com.waylonbrown.coinaware.insights.CoinWithPrices
 import com.waylonbrown.coinaware.insights.InsightsHeader
 import com.waylonbrown.coinaware.insights.InsightsListItem
+import com.waylonbrown.coinaware.insights.InsightsPieChart
 import com.waylonbrown.coinaware.insights.InsightsRelativeGraph
 import java.util.*
 
@@ -127,17 +129,38 @@ class DummyPortfolioDataProvider {
 class DummyInsightsDataProvider {
 
     fun getDummyData(): List<InsightsListItem> {
+        val listItems = mutableListOf<InsightsListItem>()
+        
+        listItems += getRelativePerformanceHeaderAndGraph()
+        listItems += getPortfolioAllocationsHeaderAndPieChart()
+        
+        return listItems
+    }
+
+    private fun getRelativePerformanceHeaderAndGraph(): List<InsightsListItem> {
         val coin1Prices = getChartData1()
         val coin1 = CoinWithPrices("BTC", coin1Prices)
         val coin2Prices = getChartData2()
         val coin2 = CoinWithPrices("ETH", coin2Prices)
         val coin3Prices = getChartData3()
         val coin3 = CoinWithPrices("LTC", coin3Prices)
-        
+
         val header = InsightsHeader("Relative Coin Performance")
         val graph = InsightsRelativeGraph(listOf(coin1, coin2, coin3))
-        
-        return listOf(InsightsListItem(header = header), 
+
+        return listOf(InsightsListItem(header = header),
+                InsightsListItem(graph = graph))
+    }
+
+    private fun getPortfolioAllocationsHeaderAndPieChart(): List<InsightsListItem> {
+        val coin1 = PieEntry(25f, "BTC")
+        val coin2 = PieEntry(63f, "ETH")
+        val coin3 = PieEntry(12f, "LTC")
+
+        val header = InsightsHeader("Portfolio Allocations")
+        val graph = InsightsPieChart(listOf(coin1, coin2, coin3))
+
+        return listOf(InsightsListItem(header = header),
                 InsightsListItem(graph = graph))
     }
 

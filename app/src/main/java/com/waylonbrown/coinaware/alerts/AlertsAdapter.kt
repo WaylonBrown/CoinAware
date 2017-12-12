@@ -48,10 +48,10 @@ class AlertsAdapter(val layoutInflater: LayoutInflater,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is AlertHeaderViewHolder) {
             // Null check has already happened
-            holder.setData(items.elementAt(position).header!!)
+            holder.setData(items[position].header!!)
         } else if (holder is AlertItemViewHolder) {
             // Null check has already happened
-            holder.setData(items.elementAt(position).item!!)
+            holder.setData(items[position].item!!)
         }
     }
 
