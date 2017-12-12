@@ -75,10 +75,6 @@ class InsightsRelativeChartConfig(val context: Context,
 
         val legend = chart.legend
         legend.isEnabled = false
-//        // TODO: use resources (DP)
-//        legend.textSize = 16f
-//        legend.isWordWrapEnabled = true
-//        legend.setDrawInside(false)
     }
 
 //    private fun updateData(backgroundColor: Int) {
