@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.portfolio
+package com.waylonbrown.coinaware.screens.portfolio
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.github.mikephil.charting.charts.LineChart
 import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.data.DummyPortfolioDataProvider.PortfolioListItem
-import com.waylonbrown.coinaware.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder.ListItemClickedListener
+import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
+import com.waylonbrown.coinaware.screens.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder.ListItemClickedListener
 
 // TODO: remove this comment when done
 // Viewholders example: https://jonfhancock.com/your-viewholders-are-dumb-make-em-not-dumb-82e6f73f630c

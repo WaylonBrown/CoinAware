@@ -1,25 +1,16 @@
-package com.waylonbrown.coinaware.alerts
+package com.waylonbrown.coinaware.screens.alerts
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.alerts.AlertsAdapter.AlertItemViewHolder
-import com.waylonbrown.coinaware.data.DummyAlertsDataProvider
+import com.waylonbrown.coinaware.screens.alerts.AlertsAdapter.AlertItemViewHolder
+import com.waylonbrown.coinaware.base.BaseRecyclerViewFragment
+import com.waylonbrown.coinaware.util.DummyAlertsDataProvider
 import kotlinx.android.synthetic.main.page_recyclerview.*
 
-// TODO: base adapter fragment
-class AlertsFragment : Fragment(), AlertItemViewHolder.ListItemClickedListener {
+class AlertsFragment : BaseRecyclerViewFragment(), AlertItemViewHolder.ListItemClickedListener {
+    
     private lateinit var alertsAdapter: AlertsAdapter
-
-    override fun onCreateView(inflater: LayoutInflater, 
-                              container: ViewGroup?, 
-                              savedInstanceState: Bundle?): View? 
-            = inflater.inflate(R.layout.page_recyclerview, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -29,7 +20,6 @@ class AlertsFragment : Fragment(), AlertItemViewHolder.ListItemClickedListener {
         alertsAdapter = AlertsAdapter(layoutInflater, this)
         recyclerView.adapter = alertsAdapter
         alertsAdapter.updateItems(DummyAlertsDataProvider().getDummyData())
-
     }
 
     override fun itemClicked(data: Alert) {

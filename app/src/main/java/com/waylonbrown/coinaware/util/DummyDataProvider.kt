@@ -1,16 +1,16 @@
-package com.waylonbrown.coinaware.data
+package com.waylonbrown.coinaware.util
 
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieEntry
-import com.waylonbrown.coinaware.alerts.Alert
-import com.waylonbrown.coinaware.alerts.AlertHeader
-import com.waylonbrown.coinaware.alerts.AlertListItem
-import com.waylonbrown.coinaware.alerts.AlertTrigger
-import com.waylonbrown.coinaware.insights.CoinWithPrices
-import com.waylonbrown.coinaware.insights.InsightsHeader
-import com.waylonbrown.coinaware.insights.InsightsListItem
-import com.waylonbrown.coinaware.insights.InsightsPieChart
-import com.waylonbrown.coinaware.insights.InsightsRelativeGraph
+import com.waylonbrown.coinaware.screens.alerts.Alert
+import com.waylonbrown.coinaware.screens.alerts.AlertHeader
+import com.waylonbrown.coinaware.screens.alerts.AlertListItem
+import com.waylonbrown.coinaware.screens.alerts.AlertTrigger
+import com.waylonbrown.coinaware.screens.insights.CoinWithPrices
+import com.waylonbrown.coinaware.screens.insights.InsightsHeader
+import com.waylonbrown.coinaware.screens.insights.InsightsListItem
+import com.waylonbrown.coinaware.screens.insights.InsightsPieChart
+import com.waylonbrown.coinaware.screens.insights.InsightsRelativeGraph
 import java.util.*
 
 class DummyPortfolioDataProvider {

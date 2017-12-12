@@ -1,11 +1,11 @@
-package com.waylonbrown.coinaware.data
+package com.waylonbrown.coinaware.api
 
 import android.util.Log
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
-import com.waylonbrown.coinaware.model.CoinPrice
-import com.waylonbrown.coinaware.retrofit.CryptoCompareService
+import com.waylonbrown.coinaware.api.model.CoinPrice
+import com.waylonbrown.coinaware.api.retrofit.CryptoCompareService
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

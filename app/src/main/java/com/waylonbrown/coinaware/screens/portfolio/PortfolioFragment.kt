@@ -1,31 +1,18 @@
-package com.waylonbrown.coinaware.portfolio
+package com.waylonbrown.coinaware.screens.portfolio
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.data.CoinPriceFetcher
-import com.waylonbrown.coinaware.data.DummyPortfolioDataProvider
-import com.waylonbrown.coinaware.data.DummyPortfolioDataProvider.PortfolioListItem
-import com.waylonbrown.coinaware.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder
-import com.waylonbrown.coinaware.retrofit.CryptoCompareService
+import com.waylonbrown.coinaware.base.BaseRecyclerViewFragment
+import com.waylonbrown.coinaware.api.CoinPriceFetcher
+import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
+import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
+import com.waylonbrown.coinaware.screens.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder
 import kotlinx.android.synthetic.main.page_recyclerview.*
 
-// TODO: base adapter fragment
-class PortfolioFragment : Fragment(), PortfolioHeaderViewHolder.ListItemClickedListener {
+class PortfolioFragment : BaseRecyclerViewFragment(), PortfolioHeaderViewHolder.ListItemClickedListener {
     
     lateinit var portfolioAdapter: PortfolioAdapter
-    lateinit var cryptoService: CryptoCompareService // TODO: dagger
-    
-
-    override fun onCreateView(inflater: LayoutInflater, 
-                              container: ViewGroup?, 
-                              savedInstanceState: Bundle?): View? 
-            = inflater.inflate(R.layout.page_recyclerview, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.alerts
+package com.waylonbrown.coinaware.screens.alerts
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SwitchCompat
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.alerts.AlertTrigger.Type
-import com.waylonbrown.coinaware.alerts.AlertsAdapter.AlertItemViewHolder.ListItemClickedListener
+import com.waylonbrown.coinaware.screens.alerts.AlertTrigger.Type
+import com.waylonbrown.coinaware.screens.alerts.AlertsAdapter.AlertItemViewHolder.ListItemClickedListener
 import com.waylonbrown.coinaware.util.FloatToCurrencyFormatter
 
 // TODO: remove this comment when done

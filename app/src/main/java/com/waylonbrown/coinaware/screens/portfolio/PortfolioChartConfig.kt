@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.portfolio
+package com.waylonbrown.coinaware.screens.portfolio
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
@@ -7,7 +7,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.data.DummyPortfolioDataProvider.PortfolioListItem
+import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
 import com.waylonbrown.coinaware.util.FloatToCurrencyFormatter
 
 class PortfolioChartConfig(val context: Context,

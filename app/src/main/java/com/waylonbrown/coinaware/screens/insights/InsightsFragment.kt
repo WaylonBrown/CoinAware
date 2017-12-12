@@ -1,24 +1,14 @@
-package com.waylonbrown.coinaware.insights
+package com.waylonbrown.coinaware.screens.insights
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.data.DummyInsightsDataProvider
+import com.waylonbrown.coinaware.base.BaseRecyclerViewFragment
+import com.waylonbrown.coinaware.util.DummyInsightsDataProvider
 import kotlinx.android.synthetic.main.page_recyclerview.*
 
-// TODO: base adapter fragment
-class InsightsFragment : Fragment() {
+class InsightsFragment : BaseRecyclerViewFragment() {
     
     lateinit var insightsAdapter: InsightsAdapter
-
-    override fun onCreateView(inflater: LayoutInflater, 
-                              container: ViewGroup?, 
-                              savedInstanceState: Bundle?): View? 
-            = inflater.inflate(R.layout.page_recyclerview, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.insights
+package com.waylonbrown.coinaware.screens.insights
 
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieEntry

@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.insights
+package com.waylonbrown.coinaware.screens.insights
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
