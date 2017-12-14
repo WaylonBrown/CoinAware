@@ -25,7 +25,7 @@ class PortfolioChartConfig(val context: Context,
         if (chart.data == null || chart.data.dataSetCount == 0) {
             initializeChart(backgroundColor)
         } else {
-            updateData(backgroundColor)
+            updateChart(backgroundColor)
         }
 
         chart.setBackgroundColor(backgroundColor)
@@ -78,7 +78,7 @@ class PortfolioChartConfig(val context: Context,
         chart.data = lineData
     }
 
-    private fun updateData(backgroundColor: Int) {
+    private fun updateChart(backgroundColor: Int) {
         val dataSet = chart.data.getDataSetByIndex(0) as LineDataSet
         dataSet.values = item.data
         dataSet.color = backgroundColor

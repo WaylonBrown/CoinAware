@@ -3,11 +3,11 @@ package com.waylonbrown.coinaware.screens.portfolio
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
-import com.waylonbrown.coinaware.base.BaseRecyclerViewFragment
 import com.waylonbrown.coinaware.api.CoinPriceFetcher
+import com.waylonbrown.coinaware.base.BaseRecyclerViewFragment
+import com.waylonbrown.coinaware.screens.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder
 import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
 import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
-import com.waylonbrown.coinaware.screens.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder
 import kotlinx.android.synthetic.main.page_recyclerview.*
 
 class PortfolioFragment : BaseRecyclerViewFragment(), PortfolioHeaderViewHolder.ListItemClickedListener {
@@ -21,10 +21,6 @@ class PortfolioFragment : BaseRecyclerViewFragment(), PortfolioHeaderViewHolder.
         recyclerView.layoutManager = LinearLayoutManager(activity)
         portfolioAdapter = PortfolioAdapter(layoutInflater, this)
         recyclerView.adapter = portfolioAdapter
-//        val dividerItemDecoration = DividerItemDecoration(recyclerView.context,
-//                (recyclerView.layoutManager as LinearLayoutManager).orientation)
-//        dividerItemDecoration.setDrawable(activity.resources.getDrawable())
-//        recyclerView.addItemDecoration(dividerItemDecoration)
         portfolioAdapter.updateItems(DummyPortfolioDataProvider().getDummyData())
         
         swipeRefreshLayout.setOnRefreshListener { 

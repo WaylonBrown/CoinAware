@@ -20,7 +20,7 @@ class InsightsRelativeChartConfig(val context: Context,
 //        if (chart.data == null || chart.data.dataSetCount == 0) {
             initializeChart()
 //        } else {
-//            updateData(backgroundColor)
+//            updateChart(backgroundColor)
 //        }
 
         chart.setBackgroundColor(backgroundColor)
