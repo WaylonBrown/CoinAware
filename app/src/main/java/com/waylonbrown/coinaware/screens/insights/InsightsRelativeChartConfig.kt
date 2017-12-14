@@ -8,15 +8,15 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.waylonbrown.coinaware.R
+import com.waylonbrown.coinaware.base.ChartConfig
 
 class InsightsRelativeChartConfig(val context: Context,
-                                  val chart: LineChart,
-                                  val item: InsightsListItem) {
-    
-    fun apply() {
+                                  override val chart: LineChart,
+                                  val item: InsightsListItem) : ChartConfig() {
+
+    override fun apply() {
         val backgroundColor = ContextCompat.getColor(context, R.color.white)
         
-        // TODO: do this for performance
 //        if (chart.data == null || chart.data.dataSetCount == 0) {
             initializeChart()
 //        } else {
@@ -26,7 +26,7 @@ class InsightsRelativeChartConfig(val context: Context,
         chart.setBackgroundColor(backgroundColor)
     }
 
-    private fun initializeChart() {
+    override fun initializeChart() {
         chart.setTouchEnabled(false)
         chart.setViewPortOffsets(-1F, -1F, 0F, 0F)
         chart.description = null
@@ -77,11 +77,11 @@ class InsightsRelativeChartConfig(val context: Context,
         legend.isEnabled = false
     }
 
-//    private fun updateData(backgroundColor: Int) {
+    override fun updateChart() {
 //        val dataSet = chart.data.getDataSetByIndex(0) as LineDataSet
 //        dataSet.prices = item.data
 //        dataSet.color = backgroundColor
 //        chart.data.notifyDataChanged()
 //        chart.notifyDataSetChanged()
-//    }
+    }
 }

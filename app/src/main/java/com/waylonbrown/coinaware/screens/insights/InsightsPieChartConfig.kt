@@ -6,13 +6,13 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.waylonbrown.coinaware.R
+import com.waylonbrown.coinaware.base.ChartConfig
 
 // TODO: remove chart config duplication
 class InsightsPieChartConfig(val context: Context,
-                             val pieChartView: PieChart,
-                             val pieChartModel: InsightsPieChart) {
-    
-    fun apply() {
+                             override val chart: PieChart,
+                             val pieChartModel: InsightsPieChart) : ChartConfig() {
+    override fun apply() {
         val backgroundColor = ContextCompat.getColor(context, R.color.white)
         
         // TODO: do this for performance
@@ -22,20 +22,16 @@ class InsightsPieChartConfig(val context: Context,
 //            updateChart(backgroundColor)
 //        }
 
-        pieChartView.setBackgroundColor(backgroundColor)
+        chart.setBackgroundColor(backgroundColor)
     }
 
-    private fun initializeChart() {
-        pieChartView.setTouchEnabled(false)
-        pieChartView.description = null
-        pieChartView.setUsePercentValues(true)
+    override fun initializeChart() {
+        chart.setTouchEnabled(false)
+        chart.description = null
+        chart.setUsePercentValues(true)
         
-        val legend = pieChartView.legend
+        val legend = chart.legend
         legend.isEnabled = false
-        
-        val coin1 = pieChartModel.coinList[0]
-        val coin2 = pieChartModel.coinList[1]
-        val coin3 = pieChartModel.coinList[2]
         
         val dataSet = PieDataSet(pieChartModel.coinList, "Unused")
         
@@ -45,5 +41,10 @@ class InsightsPieChartConfig(val context: Context,
         dataSet.colors = listOf(color1, color2, color3)
 
         val pieData = PieData(dataSet)
-        pieChartView.data = pieData
-    } }
+        chart.data = pieData
+    }
+
+    override fun updateChart() {
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+}
