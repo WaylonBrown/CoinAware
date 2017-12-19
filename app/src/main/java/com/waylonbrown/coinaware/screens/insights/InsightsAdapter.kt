@@ -79,7 +79,8 @@ class InsightsAdapter(val layoutInflater: LayoutInflater)
             this.item = data
 
             val chart = itemView.findViewById<LineChart>(R.id.chart)
-            InsightsRelativeChartConfig(itemView.context, chart, item).apply()
+            InsightsRelativeChartConfig(itemView.context, chart, item.graph as InsightsRelativeGraph)
+                    .apply()
         }
     }
 

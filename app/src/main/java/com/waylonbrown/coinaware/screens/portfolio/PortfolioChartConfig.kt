@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v4.content.ContextCompat
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.waylonbrown.coinaware.R
@@ -14,23 +15,15 @@ import com.waylonbrown.coinaware.util.FloatToCurrencyFormatter
 class PortfolioChartConfig(val context: Context,
                            override val chart: LineChart,
                            val item: PortfolioListItem,
-                           val isHeader: Boolean) : ChartConfig() {
+                           val isHeader: Boolean) : ChartConfig<Entry>() {
     
-    private var backgroundColor: Int = when {
+    override val backgroundColor: Int = when {
         isHeader -> ContextCompat.getColor(context, R.color.colorPrimary)
         item.positiveTrend -> ContextCompat.getColor(context, R.color.green)
         else -> ContextCompat.getColor(context, R.color.red)
     }
 
-    override fun apply() {
-        if (!chartIsInitialized()) {
-            initializeChart()
-        } else {
-            updateChart()
-        }
-
-        chart.setBackgroundColor(backgroundColor)
-    }
+    override val data = item.data
 
     override fun initializeChart() {
         with(chart) {
@@ -82,16 +75,5 @@ class PortfolioChartConfig(val context: Context,
 
         val lineData = LineData(dataSet)
         chart.data = lineData
-    }
-
-    /**
-     * Only updates data that changes from item to item
-     */
-    override fun updateChart() {
-        val dataSet = chart.data.getDataSetByIndex(0) as LineDataSet
-        dataSet.values = item.data
-        dataSet.color = backgroundColor
-        chart.data.notifyDataChanged()
-        chart.notifyDataSetChanged()
     }
 }

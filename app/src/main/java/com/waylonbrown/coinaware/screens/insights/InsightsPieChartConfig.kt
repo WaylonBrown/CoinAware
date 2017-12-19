@@ -5,35 +5,29 @@ import android.support.v4.content.ContextCompat
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.waylonbrown.coinaware.R
 import com.waylonbrown.coinaware.base.ChartConfig
 
-// TODO: remove chart config duplication
 class InsightsPieChartConfig(val context: Context,
                              override val chart: PieChart,
-                             val pieChartModel: InsightsPieChart) : ChartConfig() {
-    override fun apply() {
-        val backgroundColor = ContextCompat.getColor(context, R.color.white)
-        
-        // TODO: do this for performance
-//        if (chart.data == null || chart.data.dataSetCount == 0) {
-            initializeChart()
-//        } else {
-//            updateChart(backgroundColor)
-//        }
+                             val pieChartData: InsightsPieChart) : ChartConfig<PieEntry>() {
 
-        chart.setBackgroundColor(backgroundColor)
-    }
+    override val backgroundColor = ContextCompat.getColor(context, R.color.white)
+    
+    override val data = pieChartData.coinList
 
     override fun initializeChart() {
-        chart.setTouchEnabled(false)
-        chart.description = null
-        chart.setUsePercentValues(true)
+        with(chart) {
+            setTouchEnabled(false)
+            description = null
+            setUsePercentValues(true)
+        }
         
         val legend = chart.legend
         legend.isEnabled = false
         
-        val dataSet = PieDataSet(pieChartModel.coinList, "Unused")
+        val dataSet = PieDataSet(pieChartData.coinList, "Unused")
         
         val color1 = ContextCompat.getColor(context, R.color.chartLineBlue)
         val color2 = ContextCompat.getColor(context, R.color.chartLineRed)
@@ -42,9 +36,5 @@ class InsightsPieChartConfig(val context: Context,
 
         val pieData = PieData(dataSet)
         chart.data = pieData
-    }
-
-    override fun updateChart() {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

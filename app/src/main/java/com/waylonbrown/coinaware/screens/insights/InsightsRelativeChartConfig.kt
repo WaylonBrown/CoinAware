@@ -5,6 +5,7 @@ import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.waylonbrown.coinaware.R
@@ -12,19 +13,12 @@ import com.waylonbrown.coinaware.base.ChartConfig
 
 class InsightsRelativeChartConfig(val context: Context,
                                   override val chart: LineChart,
-                                  val item: InsightsListItem) : ChartConfig() {
+                                  val relativeGraphData: InsightsRelativeGraph) 
+    : ChartConfig<Entry>() {
 
-    override fun apply() {
-        val backgroundColor = ContextCompat.getColor(context, R.color.white)
-        
-//        if (chart.data == null || chart.data.dataSetCount == 0) {
-            initializeChart()
-//        } else {
-//            updateChart(backgroundColor)
-//        }
+    override val backgroundColor = ContextCompat.getColor(context, R.color.white)
 
-        chart.setBackgroundColor(backgroundColor)
-    }
+    override val data = mutableListOf<Entry>()
 
     override fun initializeChart() {
         chart.setTouchEnabled(false)
@@ -33,9 +27,9 @@ class InsightsRelativeChartConfig(val context: Context,
         chart.isAutoScaleMinMaxEnabled = true
         chart.setDrawBorders(false)
         
-        val coin1 = (item.graph as InsightsRelativeGraph).coinList[0]
-        val coin2 = item.graph.coinList[1]
-        val coin3 = item.graph.coinList[2]
+        val coin1 = relativeGraphData.coinList[0]
+        val coin2 = relativeGraphData.coinList[1]
+        val coin3 = relativeGraphData.coinList[2]
 
         val coin1DataSet = LineDataSet(coin1.prices, coin1.name)
         val coin2DataSet = LineDataSet(coin2.prices, coin2.name)
@@ -47,6 +41,18 @@ class InsightsRelativeChartConfig(val context: Context,
 
         val lineData = LineData(listOf(coin1DataSet, coin2DataSet, coin3DataSet))
         chart.data = lineData
+    }
+
+    /**
+     * Only updates data that changes from item to item
+     */
+    override fun updateChart() {
+        // TODO
+//        val dataSet = chart.data.getDataSetByIndex(0) as LineDataSet
+//        dataSet.values = data
+//        dataSet.color = backgroundColor
+//        chart.data.notifyDataChanged()
+//        chart.notifyDataSetChanged()
     }
 
     private fun setConfigForDataSet(dataSet: LineDataSet, @ColorInt lineColor: Int) {
@@ -75,13 +81,5 @@ class InsightsRelativeChartConfig(val context: Context,
 
         val legend = chart.legend
         legend.isEnabled = false
-    }
-
-    override fun updateChart() {
-//        val dataSet = chart.data.getDataSetByIndex(0) as LineDataSet
-//        dataSet.prices = item.data
-//        dataSet.color = backgroundColor
-//        chart.data.notifyDataChanged()
-//        chart.notifyDataSetChanged()
     }
 }
