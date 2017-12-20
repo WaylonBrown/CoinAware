@@ -20,11 +20,35 @@ class InsightsRelativeChartConfig(val context: Context,
     override val data = mutableListOf<Entry>()
 
     override fun initializeChart() {
-        chart.setTouchEnabled(false)
-        chart.setViewPortOffsets(-1F, -1F, 0F, 0F)
-        chart.description = null
-        chart.isAutoScaleMinMaxEnabled = true
-        chart.setDrawBorders(false)
+        with(chart) {
+            setTouchEnabled(false)
+            setViewPortOffsets(-1F, -1F, 0F, 0F)
+            description = null
+            isAutoScaleMinMaxEnabled = true
+            setDrawBorders(false)
+        }
+
+        val xAxis = chart.xAxis
+        xAxis.setDrawGridLines(false)
+
+        val yAxisLeft = chart.axisLeft
+        with(yAxisLeft) {
+            setDrawGridLines(false)
+            setDrawLabels(false)
+            setDrawZeroLine(false)
+        }
+
+        val yAxisRight = chart.axisRight
+        with(yAxisRight) {
+            textColor = ContextCompat.getColor(context, R.color.darkBackground)
+            setDrawGridLines(false)
+            setDrawZeroLine(false)
+            setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
+            setDrawLabels(false)
+        }
+
+        val legend = chart.legend
+        legend.isEnabled = false
         
         val dataSetList = mutableListOf<LineDataSet>()
         for((index, coin) in relativeGraphData.coinList.withIndex()) {
@@ -41,39 +65,25 @@ class InsightsRelativeChartConfig(val context: Context,
      * Only updates data that changes from item to item
      */
     override fun updateChart() {
-//        val dataSet = chart.data.getDataSetByIndex(0) as LineDataSet
-//        dataSet.values = data
-//        dataSet.color = backgroundColor
+        initializeChart()
+        // TODO: maybe eventually update instead of initialize every time
+//        chart.data = chart.data.dataSets.toMutableList(). 
+//        for((index, dataSet) in chart.data.dataSets.withIndex()) {
+//            val lineDataSet = dataSet as LineDataSet
+//            lineDataSet.values = relativeGraphData.coinList[index].prices
+//            lineDataSet.color = getColorByIndex(index)
+//        }
 //        chart.data.notifyDataChanged()
 //        chart.notifyDataSetChanged()
     }
 
-    private fun setConfigForDataSet(dataSet: LineDataSet, index: Int) {
-        dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
-        dataSet.setDrawCircles(false)
-        dataSet.setDrawValues(false)
-        dataSet.setDrawFilled(false)
-        dataSet.lineWidth = 3f
-        dataSet.color = getColorByIndex(index)
-
-        // TODO: do the below for each one or just once?
-        val xAxis = chart.xAxis
-        xAxis.setDrawGridLines(false)
-
-        val yAxisLeft = chart.axisLeft
-        yAxisLeft.setDrawGridLines(false)
-        yAxisLeft.setDrawLabels(false)
-        yAxisLeft.setDrawZeroLine(false)
-
-        val yAxisRight = chart.axisRight
-        yAxisRight.textColor = ContextCompat.getColor(context, R.color.darkBackground)
-        yAxisRight.setDrawGridLines(false)
-        yAxisRight.setDrawZeroLine(false)
-        yAxisRight.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
-        yAxisRight.setDrawLabels(false)
-
-        val legend = chart.legend
-        legend.isEnabled = false
+    private fun setConfigForDataSet(dataSet: LineDataSet, index: Int) = with(dataSet) {
+        mode = LineDataSet.Mode.CUBIC_BEZIER
+        setDrawCircles(false)
+        setDrawValues(false)
+        setDrawFilled(false)
+        lineWidth = 3f
+        color = getColorByIndex(index)
     }
 
     private fun getColorByIndex(index: Int): Int = when(index) {
