@@ -3,14 +3,12 @@ package com.waylonbrown.coinaware.screens.portfolio
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.waylonbrown.coinaware.R
 import com.waylonbrown.coinaware.base.ChartConfig
 import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
-import com.waylonbrown.coinaware.util.FloatToCurrencyFormatter
 
 class PortfolioChartConfig(val context: Context,
                            override val chart: LineChart,
@@ -51,6 +49,7 @@ class PortfolioChartConfig(val context: Context,
 
         val xAxis = chart.xAxis
         xAxis.setDrawGridLines(false)
+        xAxis.setDrawLabels(false)
 
         val yAxisLeft = chart.axisLeft
         with(yAxisLeft) {
@@ -61,13 +60,9 @@ class PortfolioChartConfig(val context: Context,
 
         val yAxisRight = chart.axisRight
         with(yAxisRight) {
-            textColor = ContextCompat.getColor(context, R.color.white)
             setDrawGridLines(false)
             setDrawZeroLine(false)
-            setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
-            setValueFormatter {
-                value, axis -> FloatToCurrencyFormatter(value).formatWithDollarSign()
-            }
+            setDrawLabels(false)
         }
 
         val legend = chart.legend
