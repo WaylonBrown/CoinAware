@@ -9,38 +9,43 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
 import com.waylonbrown.coinaware.R
 
-// TODO: remove this comment when done
-// Viewholders example: https://jonfhancock.com/your-viewholders-are-dumb-make-em-not-dumb-82e6f73f630c
-class InsightsAdapter(val layoutInflater: LayoutInflater)
+class InsightsAdapter(private val layoutInflater: LayoutInflater)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var items: List<InsightsListItem> = mutableListOf()
+
+    enum class ItemType {
+        HEADER,
+        RELATIVE_PERFORMANCE_GRAPH,
+        ALLOCATIONS_PIE_CHART
+    }
 
     fun updateItems(data: List<InsightsListItem>) {
         this.items = data
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == InsightsListItem.ItemType.HEADER.ordinal) {
-            val view = layoutInflater.inflate(R.layout.insights_item_header, parent, false)
-            InsightsHeaderViewHolder(view)
-        } else if (viewType == InsightsListItem.ItemType.RELATIVE_PERFORMANCE_GRAPH.ordinal){
-            val view = layoutInflater.inflate(R.layout.insights_item_relative_chart, parent, false)
-            InsightsRelativeChartViewHolder(view)
-        } else {
-            val view = layoutInflater.inflate(R.layout.insights_item_pie_chart, parent, false)
-            InsightsPieChartViewHolder(view)
+        return when (viewType) {
+            ItemType.HEADER.ordinal -> {
+                val view = layoutInflater.inflate(R.layout.insights_item_header, parent, false)
+                InsightsHeaderViewHolder(view)
+            }
+            ItemType.RELATIVE_PERFORMANCE_GRAPH.ordinal -> {
+                val view = layoutInflater.inflate(R.layout.insights_item_relative_chart, parent, false)
+                InsightsRelativeChartViewHolder(view)
+            }
+            else -> {
+                val view = layoutInflater.inflate(R.layout.insights_item_pie_chart, parent, false)
+                InsightsPieChartViewHolder(view)
+            }
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        // TODO: make this abstract to prevent this duplication
-        if (holder is InsightsHeaderViewHolder) {
-            holder.setData(items[position])
-        } else if (holder is InsightsRelativeChartViewHolder) {
-            holder.setData(items[position])
-        } else if (holder is InsightsPieChartViewHolder) {
-            holder.setData(items[position])
+        when (holder) {
+            is InsightsHeaderViewHolder -> holder.setData(items[position])
+            is InsightsRelativeChartViewHolder -> holder.setData(items[position])
+            is InsightsPieChartViewHolder -> holder.setData(items[position])
         }
     }
 
@@ -51,53 +56,30 @@ class InsightsAdapter(val layoutInflater: LayoutInflater)
     class InsightsHeaderViewHolder(itemView: View)
         : RecyclerView.ViewHolder(itemView) {
 
-        lateinit var item: InsightsListItem
-
-        // TODO: remove this comment when done
-        // Example: 
-        // https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/CubicLineChartActivity.java
         fun setData(data: InsightsListItem) {
-            this.item = data
-//
             val title = itemView.findViewById(R.id.headerTitle) as TextView
-            if (item.header != null) {
-                title.text = item.header!!.name
+            if (data.header != null) {
+                title.text = data.header.name
             }
         }
     }
 
-    // TODO: remove duplication
     class InsightsRelativeChartViewHolder(itemView: View)
         : RecyclerView.ViewHolder(itemView) {
 
-        lateinit var item: InsightsListItem
-
-        // TODO: remove this comment when done
-        // Example: 
-        // https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/CubicLineChartActivity.java
         fun setData(data: InsightsListItem) {
-            this.item = data
-
             val chart = itemView.findViewById<LineChart>(R.id.chart)
-            InsightsRelativeChartConfig(itemView.context, chart, item.graph as InsightsRelativeGraph)
+            InsightsRelativeChartConfig(itemView.context, chart, data.graph as InsightsRelativeGraph)
                     .apply()
         }
     }
 
-    // TODO: remove duplication
     class InsightsPieChartViewHolder(itemView: View)
         : RecyclerView.ViewHolder(itemView) {
 
-        lateinit var item: InsightsListItem
-
-        // TODO: remove this comment when done
-        // Example: 
-        // https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/CubicLineChartActivity.java
         fun setData(data: InsightsListItem) {
-            this.item = data
-
             val chart = itemView.findViewById<PieChart>(R.id.chart)
-            InsightsPieChartConfig(itemView.context, chart, item.graph as InsightsPieChart).apply()
+            InsightsPieChartConfig(itemView.context, chart, data.graph as InsightsPieChart).apply()
         }
     }
 }

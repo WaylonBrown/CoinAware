@@ -11,8 +11,6 @@ import com.waylonbrown.coinaware.screens.alerts.AlertTrigger.Type
 import com.waylonbrown.coinaware.screens.alerts.AlertsAdapter.AlertItemViewHolder.ListItemClickedListener
 import com.waylonbrown.coinaware.util.FloatToCurrencyFormatter
 
-// TODO: remove this comment when done
-// Viewholders example: https://jonfhancock.com/your-viewholders-are-dumb-make-em-not-dumb-82e6f73f630c
 class AlertsAdapter(private val layoutInflater: LayoutInflater,
                     private val itemClickedListener: ListItemClickedListener) 
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -28,12 +26,10 @@ class AlertsAdapter(private val layoutInflater: LayoutInflater,
         this.items = data
     }
 
-    override fun getItemViewType(position: Int): Int {
-        if (items[position].isHeader()) {
-            return ItemType.HEADER.ordinal
-        }
-        return ItemType.LIST_ITEM.ordinal
-    }
+    override fun getItemViewType(position: Int): Int = 
+        if (items[position].isHeader()) ItemType.HEADER.ordinal
+        else ItemType.LIST_ITEM.ordinal
+    
     
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ItemType.HEADER.ordinal) {
@@ -47,13 +43,13 @@ class AlertsAdapter(private val layoutInflater: LayoutInflater,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is AlertHeaderViewHolder) {
-            // Null check has already happened
             holder.setData(items[position].header!!)
         } else if (holder is AlertItemViewHolder) {
-            // Null check has already happened
             holder.setData(items[position].item!!, isDividerVisibleAtPosition(position))
         }
     }
+
+    override fun getItemCount(): Int = items.size
 
     private fun isDividerVisibleAtPosition(position: Int): Boolean {
         if (position == items.lastIndex ||
@@ -63,16 +59,9 @@ class AlertsAdapter(private val layoutInflater: LayoutInflater,
         return true
     }
 
-    override fun getItemCount(): Int = items.size
-
     class AlertHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        // TODO: need to keep value here? Same for all other holders
-        lateinit var header: AlertHeader
-
         fun setData(header: AlertHeader) {
-            this.header = header
-
             val coinTitle = itemView.findViewById(R.id.coinTitle) as TextView
             val coinPrice = itemView.findViewById(R.id.coinPrice) as TextView
             
@@ -81,7 +70,6 @@ class AlertsAdapter(private val layoutInflater: LayoutInflater,
         }
     }
 
-    // TODO: remove duplication
     class AlertItemViewHolder(itemView: View, listener: ListItemClickedListener) 
         : RecyclerView.ViewHolder(itemView) {
 

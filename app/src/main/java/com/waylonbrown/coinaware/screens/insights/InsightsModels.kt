@@ -2,15 +2,10 @@ package com.waylonbrown.coinaware.screens.insights
 
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieEntry
+import com.waylonbrown.coinaware.screens.insights.InsightsAdapter.ItemType
 
 data class InsightsListItem(val header: InsightsHeader? = null,
                             val graph: InsightsGraph? = null) {
-
-    enum class ItemType {
-        HEADER,
-        RELATIVE_PERFORMANCE_GRAPH,
-        ALLOCATIONS_PIE_CHART
-    }
     
     fun getItemType(): ItemType {
         if (header != null) {
