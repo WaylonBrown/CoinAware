@@ -17,8 +17,8 @@ class DummyPortfolioDataProvider {
 
     data class PortfolioListItem(val data: List<Entry>, val positiveTrend: Boolean)
 
-    fun getDummyData(): Set<PortfolioListItem> {
-        val dataSet = mutableSetOf<PortfolioListItem>()
+    fun getDummyData(): List<PortfolioListItem> {
+        val dataSet = mutableListOf<PortfolioListItem>()
         dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
         dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
         dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))

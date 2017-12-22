@@ -2,7 +2,7 @@ package com.waylonbrown.coinaware.util
 
 import java.text.DecimalFormat
 
-class FloatToCurrencyFormatter(val value: Float) {
+class FloatToCurrencyFormatter(private val value: Float) {
 
     fun formatWithDollarSign(): String {
         return "$${formatToTwoDecimals()}"

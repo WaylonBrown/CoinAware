@@ -10,10 +10,10 @@ import com.waylonbrown.coinaware.R
 import com.waylonbrown.coinaware.base.ChartConfig
 import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
 
-class PortfolioChartConfig(val context: Context,
+class PortfolioChartConfig(private val context: Context,
                            override val chart: LineChart,
                            val item: PortfolioListItem,
-                           val isHeader: Boolean) : ChartConfig<Entry>() {
+                           private val isHeader: Boolean) : ChartConfig<Entry>() {
     
     override val backgroundColor: Int = when {
         isHeader -> ContextCompat.getColor(context, R.color.colorPrimary)

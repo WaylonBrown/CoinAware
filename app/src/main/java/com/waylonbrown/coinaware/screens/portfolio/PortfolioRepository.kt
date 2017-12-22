@@ -1,11 +1,14 @@
-package com.waylonbrown.coinaware.api
+package com.waylonbrown.coinaware.screens.portfolio
 
-import android.util.Log
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import com.waylonbrown.coinaware.api.model.CoinPrice
 import com.waylonbrown.coinaware.api.retrofit.CryptoCompareService
+import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
+import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -15,11 +18,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class CoinPriceFetcher {
+class PortfolioRepository {
     
-    val TAG = CoinPriceFetcher::class.java.simpleName
-    
-    fun getFromBTCtoUSDPrice(listener: FetchCoinPriceListener) {
+    private val TAG = PortfolioRepository::class.java.simpleName
+    private var cryptoService: CryptoCompareService? = null
+
+    fun getBTCtoUSDPrice(): LiveData<List<PortfolioListItem>> {
+        val returnData = MutableLiveData<List<PortfolioListItem>>()
+        
         val client = OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
@@ -33,29 +39,24 @@ class CoinPriceFetcher {
                 .client(client)
                 .build()
 
-        val cryptoService = retrofit.create(CryptoCompareService::class.java)
-        cryptoService.getCurrencyToCurrencyPrice(from = "BTC", to = "USD")
+        cryptoService = retrofit.create(CryptoCompareService::class.java)
+        (cryptoService as CryptoCompareService).getCurrencyToCurrencyPrice(from = "BTC", to = "USD")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object: SingleObserver<CoinPrice> {
                     override fun onSuccess(value: CoinPrice) {
-                        listener.coinPriceFetched(value.price)
+                        returnData.value = DummyPortfolioDataProvider().getDummyData()
                     }
 
                     override fun onError(e: Throwable?) {
-                        Log.e(TAG, "Error getting price", e)
-                        listener.onFetchFail()
+                        returnData.value = null
                     }
 
                     override fun onSubscribe(d: Disposable?) {
                     }
 
                 })
-    }
-    
-    interface FetchCoinPriceListener {
-        fun coinPriceFetched(price: Float)
         
-        fun onFetchFail()
+        return returnData
     }
 }

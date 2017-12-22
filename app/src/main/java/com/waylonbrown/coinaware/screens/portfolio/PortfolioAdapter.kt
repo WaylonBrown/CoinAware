@@ -13,15 +13,17 @@ class PortfolioAdapter(private val layoutInflater: LayoutInflater,
                        private val itemClickedListener: PortfolioItemViewHolder.ListItemClickedListener) 
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     
-    private var items: Set<PortfolioListItem> = mutableSetOf()
+    private var items: List<PortfolioListItem> = mutableListOf()
 
     enum class ItemType {
         HEADER,
         LIST_ITEM
     }
 
-    fun updateItems(data: Set<PortfolioListItem>) {
+    fun updateItems(data: List<PortfolioListItem>) {
         this.items = data
+        // TODO: diffutil
+        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int =
@@ -40,9 +42,9 @@ class PortfolioAdapter(private val layoutInflater: LayoutInflater,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is PortfolioHeaderViewHolder) {
-            holder.setData(items.elementAt(position))
+            holder.setData(items[position])
         } else if (holder is PortfolioItemViewHolder) {
-            holder.setData(items.elementAt(position))
+            holder.setData(items[position])
         }
     }
 
