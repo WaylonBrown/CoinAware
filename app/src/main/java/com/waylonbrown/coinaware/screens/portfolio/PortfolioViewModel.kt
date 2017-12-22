@@ -6,11 +6,12 @@ import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListIt
 
 class PortfolioViewModel : ViewModel() {
     
-    lateinit var listData: LiveData<List<PortfolioListItem>>
+    var listData: LiveData<List<PortfolioListItem>>? = null
     
     fun initialize() {
+        if (listData != null) return
+        
         listData = PortfolioRepository().getBTCtoUSDPrice()
     }
-
 
 }

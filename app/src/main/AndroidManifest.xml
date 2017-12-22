@@ -10,7 +10,8 @@
         android:label="@string/appname"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".App">
         <activity
             android:name=".HomeActivity"
             android:label="@string/appname">

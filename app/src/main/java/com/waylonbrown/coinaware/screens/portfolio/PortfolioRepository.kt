@@ -13,17 +13,20 @@ import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import mu.KotlinLogging
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
+private val logger = KotlinLogging.logger {}
+
 class PortfolioRepository {
-    
-    private val TAG = PortfolioRepository::class.java.simpleName
+
     private var cryptoService: CryptoCompareService? = null
 
     fun getBTCtoUSDPrice(): LiveData<List<PortfolioListItem>> {
+        
         val returnData = MutableLiveData<List<PortfolioListItem>>()
         
         val client = OkHttpClient.Builder()
@@ -46,10 +49,12 @@ class PortfolioRepository {
                 .subscribeWith(object: SingleObserver<CoinPrice> {
                     override fun onSuccess(value: CoinPrice) {
                         returnData.value = DummyPortfolioDataProvider().getDummyData()
+                        logger.info { "Value returned: $value"}
                     }
 
                     override fun onError(e: Throwable?) {
                         returnData.value = null
+                        logger.error(e!!) { "Couldn't get result" }
                     }
 
                     override fun onSubscribe(d: Disposable?) {

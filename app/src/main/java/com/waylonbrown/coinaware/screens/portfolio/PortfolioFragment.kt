@@ -29,7 +29,8 @@ class PortfolioFragment : BaseRecyclerViewFragment(),
         
         viewModel = ViewModelProviders.of(this).get(PortfolioViewModel::class.java)
         viewModel.initialize()
-        viewModel.listData.observe(this, this)
+        // Is set in initialization
+        viewModel.listData!!.observe(this, this)
     }
 
     /**
