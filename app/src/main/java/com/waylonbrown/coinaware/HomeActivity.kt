@@ -8,9 +8,9 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import com.waylonbrown.coinaware.screens.alerts.AlertsFragment
-import com.waylonbrown.coinaware.screens.insights.InsightsFragment
-import com.waylonbrown.coinaware.screens.portfolio.PortfolioFragment
+import com.waylonbrown.coinaware.features.alerts.AlertsFragment
+import com.waylonbrown.coinaware.features.insights.InsightsFragment
+import com.waylonbrown.coinaware.features.portfolio.PortfolioFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 

@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.screens.portfolio
+package com.waylonbrown.coinaware.features.portfolio
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -6,15 +6,16 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import com.waylonbrown.coinaware.base.BaseRecyclerViewFragment
-import com.waylonbrown.coinaware.screens.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder.ListHeaderClickedListener
-import com.waylonbrown.coinaware.screens.portfolio.PortfolioAdapter.PortfolioItemViewHolder.ListItemClickedListener
+import com.waylonbrown.coinaware.features.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder.ListHeaderClickedListener
+import com.waylonbrown.coinaware.features.portfolio.PortfolioAdapter.PortfolioItemViewHolder.ListItemClickedListener
+import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListData
 import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
 import kotlinx.android.synthetic.main.page_recyclerview.*
 
 class PortfolioFragment : BaseRecyclerViewFragment(), 
         ListHeaderClickedListener, 
         ListItemClickedListener,
-        Observer<List<PortfolioListItem>>{
+        Observer<PortfolioListData> {
     
     private lateinit var viewModel: PortfolioViewModel
     private lateinit var portfolioAdapter: PortfolioAdapter
@@ -36,9 +37,9 @@ class PortfolioFragment : BaseRecyclerViewFragment(),
     /**
      * Underlying data has change, have it reflect in the UI
      */
-    override fun onChanged(itemList: List<PortfolioListItem>?) {
-        if (itemList != null) {
-            portfolioAdapter.updateItems(itemList)
+    override fun onChanged(data: PortfolioListData?) {
+        if (data != null && !data.errorState) {
+            portfolioAdapter.updateItems(data)
         } else {
             Toast.makeText(this@PortfolioFragment.activity, "Couldn't get data",
                     Toast.LENGTH_SHORT).show()

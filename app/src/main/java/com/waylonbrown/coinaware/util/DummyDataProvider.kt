@@ -2,22 +2,31 @@ package com.waylonbrown.coinaware.util
 
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieEntry
-import com.waylonbrown.coinaware.screens.alerts.Alert
-import com.waylonbrown.coinaware.screens.alerts.AlertHeader
-import com.waylonbrown.coinaware.screens.alerts.AlertListItem
-import com.waylonbrown.coinaware.screens.alerts.AlertTrigger
-import com.waylonbrown.coinaware.screens.insights.CoinWithPrices
-import com.waylonbrown.coinaware.screens.insights.InsightsHeader
-import com.waylonbrown.coinaware.screens.insights.InsightsListItem
-import com.waylonbrown.coinaware.screens.insights.InsightsPieChart
-import com.waylonbrown.coinaware.screens.insights.InsightsRelativeGraph
+import com.waylonbrown.coinaware.features.alerts.Alert
+import com.waylonbrown.coinaware.features.alerts.AlertHeader
+import com.waylonbrown.coinaware.features.alerts.AlertListItem
+import com.waylonbrown.coinaware.features.alerts.AlertTrigger
+import com.waylonbrown.coinaware.features.insights.CoinWithPrices
+import com.waylonbrown.coinaware.features.insights.InsightsHeader
+import com.waylonbrown.coinaware.features.insights.InsightsListItem
+import com.waylonbrown.coinaware.features.insights.InsightsPieChart
+import com.waylonbrown.coinaware.features.insights.InsightsRelativeGraph
 import java.util.*
 
 class DummyPortfolioDataProvider {
+    
+    data class PortfolioListData(val items: List<PortfolioListItem>, 
+                                 val errorState: Boolean = false) {
+        
+        companion object {
+            fun ofErrorState(): PortfolioListData = PortfolioListData(errorState = true,
+                    items = listOf())
+        }
+    }
 
     data class PortfolioListItem(val data: List<Entry>, val positiveTrend: Boolean)
 
-    fun getDummyData(): List<PortfolioListItem> {
+    fun getDummyData(): PortfolioListData {
         val dataSet = mutableListOf<PortfolioListItem>()
         dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
         dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
@@ -29,7 +38,7 @@ class DummyPortfolioDataProvider {
         dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
         dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
         dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
-        return dataSet
+        return PortfolioListData(dataSet)
     }
     
     private fun getRandomChartData(): List<Entry> = when (randNumber()) {

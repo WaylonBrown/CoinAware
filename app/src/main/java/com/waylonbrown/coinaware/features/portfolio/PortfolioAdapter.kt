@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.screens.portfolio
+package com.waylonbrown.coinaware.features.portfolio
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.github.mikephil.charting.charts.LineChart
 import com.waylonbrown.coinaware.R
+import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
 import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
 
 class PortfolioAdapter(private val layoutInflater: LayoutInflater,
@@ -20,8 +21,8 @@ class PortfolioAdapter(private val layoutInflater: LayoutInflater,
         LIST_ITEM
     }
 
-    fun updateItems(data: List<PortfolioListItem>) {
-        this.items = data
+    fun updateItems(data: DummyPortfolioDataProvider.PortfolioListData) {
+        this.items = data.items
         // TODO: diffutil
         notifyDataSetChanged()
     }

@@ -1,9 +1,9 @@
-package com.waylonbrown.coinaware.screens.alerts
+package com.waylonbrown.coinaware.features.alerts
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
-import com.waylonbrown.coinaware.screens.alerts.AlertsAdapter.AlertItemViewHolder
+import com.waylonbrown.coinaware.features.alerts.AlertsAdapter.AlertItemViewHolder
 import com.waylonbrown.coinaware.base.BaseRecyclerViewFragment
 import com.waylonbrown.coinaware.util.DummyAlertsDataProvider
 import kotlinx.android.synthetic.main.page_recyclerview.*

@@ -1,8 +1,8 @@
-package com.waylonbrown.coinaware.screens.insights
+package com.waylonbrown.coinaware.features.insights
 
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieEntry
-import com.waylonbrown.coinaware.screens.insights.InsightsAdapter.ItemType
+import com.waylonbrown.coinaware.features.insights.InsightsAdapter.ItemType
 
 data class InsightsListItem(val header: InsightsHeader? = null,
                             val graph: InsightsGraph? = null) {

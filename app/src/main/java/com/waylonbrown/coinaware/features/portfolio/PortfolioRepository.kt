@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.screens.portfolio
+package com.waylonbrown.coinaware.features.portfolio
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import com.squareup.moshi.Moshi
 import com.waylonbrown.coinaware.api.model.CoinPrice
 import com.waylonbrown.coinaware.api.retrofit.CryptoCompareService
 import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
-import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
+import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListData
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -24,11 +24,27 @@ private val logger = KotlinLogging.logger {}
 class PortfolioRepository {
 
     private var cryptoService: CryptoCompareService? = null
+    private val portfolioDao = PortfolioDao()
 
-    fun getBTCtoUSDPrice(): LiveData<List<PortfolioListItem>> {
+    /**
+     * Return cached data, or fetch new data if nothing cached
+     */
+    fun getBTCtoUSDPrice(): LiveData<PortfolioListData> {
+
+        val cachedData = portfolioDao.getBTCtoUSDPrice()
+        if (cachedData != null) {
+            return cachedData
+        }
         
-        val returnData = MutableLiveData<List<PortfolioListItem>>()
-        
+        return fetchBTCtoUSDPrice()
+    }
+
+    /**
+     * Fetch new data
+     */
+    fun fetchBTCtoUSDPrice(): LiveData<PortfolioListData> {
+        val returnData = MutableLiveData<PortfolioListData>()
+
         val client = OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
@@ -53,7 +69,7 @@ class PortfolioRepository {
                     }
 
                     override fun onError(e: Throwable?) {
-                        returnData.value = null
+                        returnData.value = PortfolioListData.ofErrorState()
                         logger.error(e!!) { "Couldn't get result" }
                     }
 
@@ -61,7 +77,7 @@ class PortfolioRepository {
                     }
 
                 })
-        
+
         return returnData
     }
 }

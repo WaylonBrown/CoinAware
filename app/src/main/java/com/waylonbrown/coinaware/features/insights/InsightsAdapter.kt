@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.screens.insights
+package com.waylonbrown.coinaware.features.insights
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.screens.alerts
+package com.waylonbrown.coinaware.features.alerts
 
 data class AlertListItem(val header: AlertHeader? = null,
                          val item: Alert? = null) {

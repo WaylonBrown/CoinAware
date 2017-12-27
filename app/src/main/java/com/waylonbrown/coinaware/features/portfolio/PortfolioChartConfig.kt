@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.screens.portfolio
+package com.waylonbrown.coinaware.features.portfolio
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
