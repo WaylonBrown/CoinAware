@@ -12,11 +12,11 @@ class PortfolioViewModel : ViewModel() {
         // Important since this is called multiple times in the lifecycle
         if (listData != null) return
         
-        listData = PortfolioRepository().getBTCtoUSDPrice()
+        listData = PortfolioRepository().getCachedBTCtoUSDPrice()
     }
     
     fun fetchNewData() {
-        listData = PortfolioRepository().fetchBTCtoUSDPrice()
+        listData = PortfolioRepository().getFreshBTCtoUSDPrice()
     }
 
 }

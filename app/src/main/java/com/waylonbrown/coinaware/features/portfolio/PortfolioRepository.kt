@@ -29,20 +29,22 @@ class PortfolioRepository {
     /**
      * Return cached data, or fetch new data if nothing cached
      */
-    fun getBTCtoUSDPrice(): LiveData<PortfolioListData> {
-
+    fun getCachedBTCtoUSDPrice(): LiveData<PortfolioListData> {
+        
+        // TODO: all DAO interaction needs to be on background thread
         val cachedData = portfolioDao.getBTCtoUSDPrice()
         if (cachedData != null) {
             return cachedData
         }
         
-        return fetchBTCtoUSDPrice()
+        // TODO: want this to update the DAO then get from the DAO here after fetched
+        return getFreshBTCtoUSDPrice()
     }
 
     /**
      * Fetch new data
      */
-    fun fetchBTCtoUSDPrice(): LiveData<PortfolioListData> {
+    fun getFreshBTCtoUSDPrice(): LiveData<PortfolioListData> {
         val returnData = MutableLiveData<PortfolioListData>()
 
         val client = OkHttpClient.Builder()
