@@ -5,8 +5,8 @@ import android.arch.lifecycle.MutableLiveData
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
-import com.waylonbrown.coinaware.api.model.CoinPrice
-import com.waylonbrown.coinaware.api.retrofit.CryptoCompareService
+import com.waylonbrown.coinaware.io.model.CoinPrice
+import com.waylonbrown.coinaware.io.retrofit.CryptoCompareService
 import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
 import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListData
 import io.reactivex.SingleObserver

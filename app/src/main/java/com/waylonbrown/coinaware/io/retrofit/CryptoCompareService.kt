@@ -1,6 +1,6 @@
-package com.waylonbrown.coinaware.api.retrofit
+package com.waylonbrown.coinaware.io.retrofit
 
-import com.waylonbrown.coinaware.api.model.CoinPrice
+import com.waylonbrown.coinaware.io.model.CoinPrice
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

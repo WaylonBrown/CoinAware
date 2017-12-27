@@ -1,4 +1,4 @@
-package com.waylonbrown.coinaware.api.model
+package com.waylonbrown.coinaware.io.model
 
 import com.squareup.moshi.Json
 

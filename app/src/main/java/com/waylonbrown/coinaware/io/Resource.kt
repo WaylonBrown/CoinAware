@@ -1,7 +1,7 @@
-package com.waylonbrown.coinaware.util
+package com.waylonbrown.coinaware.io
 
 //a generic class that describes a data with a status
-class Resource<T> private constructor(val status: Status, 
+class Resource<T> private constructor(val status: Status,
                                       val data: T? = null,
                                       val message: String? = null) {
     
