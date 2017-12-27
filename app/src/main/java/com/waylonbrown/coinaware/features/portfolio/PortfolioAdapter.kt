@@ -4,10 +4,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
 import com.waylonbrown.coinaware.R
-import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
+import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListData
 import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
+import com.waylonbrown.coinaware.util.FloatToCurrencyFormatter
+import mu.KotlinLogging
+
+private val logger = KotlinLogging.logger {}
 
 class PortfolioAdapter(private val layoutInflater: LayoutInflater,
                        private val headerClickedListener: PortfolioHeaderViewHolder.ListHeaderClickedListener,
@@ -21,14 +26,24 @@ class PortfolioAdapter(private val layoutInflater: LayoutInflater,
         LIST_ITEM
     }
 
-    fun updateItems(data: DummyPortfolioDataProvider.PortfolioListData) {
+    fun updateItems(data: PortfolioListData) {
         this.items = data.items
         // TODO: diffutil
         notifyDataSetChanged()
     }
 
+    fun updatePortfolioValue(data: Float) {
+        val header = items[0].header
+        if (!items.isEmpty() && header != null) {
+            header.portfolioValue = data
+            notifyItemChanged(0)
+        } else {
+            logger.error { "First list item wasn't the header, couldn't update value" }
+        }
+    }
+
     override fun getItemViewType(position: Int): Int =
-        if (position == 0) ItemType.HEADER.ordinal
+        if (items[position].header != null) ItemType.HEADER.ordinal
         else ItemType.LIST_ITEM.ordinal
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
@@ -55,7 +70,7 @@ class PortfolioAdapter(private val layoutInflater: LayoutInflater,
         : RecyclerView.ViewHolder(itemView) {
 
         lateinit var item: PortfolioListItem
-
+        
         interface ListHeaderClickedListener {
             fun headerClicked(data: PortfolioListItem)
         }
@@ -63,13 +78,18 @@ class PortfolioAdapter(private val layoutInflater: LayoutInflater,
         init {
             itemView.setOnClickListener { listener.headerClicked(item) }
         }
-
+        
         fun setData(data: PortfolioListItem) {
             this.item = data
 
-            val chart = itemView.findViewById<LineChart>(R.id.chart)
-            PortfolioChartConfig(itemView.context, chart, item, true).apply()
+            val chart = itemView.findViewById(R.id.chart) as LineChart
+            val portfolioValue = itemView.findViewById(R.id.totalPortfolioValue) as TextView
+            
+            PortfolioChartConfig(itemView.context, chart, item).apply()
+            portfolioValue.text = FloatToCurrencyFormatter(item.header!!.portfolioValue)
+                    .formatWithDollarSign()
         }
+
     }
 
     class PortfolioItemViewHolder(itemView: View, listener: ListItemClickedListener)
@@ -80,16 +100,17 @@ class PortfolioAdapter(private val layoutInflater: LayoutInflater,
         interface ListItemClickedListener {
             fun itemClicked(data: PortfolioListItem)
         }
-        
+
         init {
             itemView.setOnClickListener { listener.itemClicked(item) }
         }
-
+        
         fun setData(data: PortfolioListItem) {
             this.item = data
 
             val chart = itemView.findViewById<LineChart>(R.id.chart)
-            PortfolioChartConfig(itemView.context, chart, item, false).apply()
+            PortfolioChartConfig(itemView.context, chart, item).apply()
         }
+
     }
 }

@@ -1,9 +1,9 @@
 package com.waylonbrown.coinaware.io
 
 //a generic class that describes a data with a status
-class Resource<T> private constructor(val status: Status,
-                                      val data: T? = null,
-                                      val message: String? = null) {
+class Resource<out T> private constructor(val status: Status,
+                                          val data: T? = null,
+                                          val message: String? = null) {
     
     companion object {
         fun <T> success(data: T): Resource<T> {

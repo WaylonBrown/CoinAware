@@ -1,23 +1,30 @@
 package com.waylonbrown.coinaware.features.portfolio
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
+import com.waylonbrown.coinaware.io.Resource
+import mu.KotlinLogging
+
+private val logger = KotlinLogging.logger {}
 
 class PortfolioViewModel : ViewModel() {
     
-    var listData: LiveData<DummyPortfolioDataProvider.PortfolioListData>? = null
+    private var listData = MutableLiveData<Resource<Float>>()
     private val repository = PortfolioRepository()
     
-    fun initialize() {
-        // Important since this is called multiple times in the lifecycle
-        if (listData != null) return
-        
-        listData = repository.getCachedBTCtoUSDPrice()
+    fun getDataFromCache() {
+        // TODO: change back to getting actual price
+//        listData = repository.getBTCtoUSDPrice()
+        listData.value = Resource.success(124.13f)
     }
     
     fun fetchNewData() {
-        listData = repository.getFreshBTCtoUSDPrice()
+        listData.value = Resource.success(94.32f)
+        // TODO: change back to getting actual price
+//        listData = repository.fetchNewBTCtoUSDPrice()
     }
-
+    
+    // Expose LiveData rather than MutableLiveData
+    fun getLiveData(): LiveData<Resource<Float>> = listData
 }

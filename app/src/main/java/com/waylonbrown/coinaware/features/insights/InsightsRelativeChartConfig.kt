@@ -66,7 +66,7 @@ class InsightsRelativeChartConfig(val context: Context,
      */
     override fun updateChart() {
         initializeChart()
-        // TODO: maybe update instead of initialize every time
+        // TODO: try to update instead of getDataFromCache every time
 //        chart.data = chart.data.dataSets.toMutableList(). 
 //        for((index, dataSet) in chart.data.dataSets.withIndex()) {
 //            val lineDataSet = dataSet as LineDataSet

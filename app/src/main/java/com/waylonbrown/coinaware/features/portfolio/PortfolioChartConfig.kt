@@ -8,20 +8,25 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.waylonbrown.coinaware.R
 import com.waylonbrown.coinaware.base.ChartConfig
+import com.waylonbrown.coinaware.features.portfolio.PortfolioChartConfig.Type.*
 import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
 
 class PortfolioChartConfig(private val context: Context,
                            override val chart: LineChart,
-                           val item: PortfolioListItem,
-                           private val isHeader: Boolean) : ChartConfig<Entry>() {
+                           val item: PortfolioListItem) : ChartConfig<Entry>() {
     
-    override val backgroundColor: Int = when {
-        isHeader -> ContextCompat.getColor(context, R.color.colorPrimary)
-        item.positiveTrend -> ContextCompat.getColor(context, R.color.green)
-        else -> ContextCompat.getColor(context, R.color.red)
+    private val type = getItemType()
+    
+    override val backgroundColor: Int = when(type) {
+        HEADER -> ContextCompat.getColor(context, R.color.colorPrimary)
+        POSITIVE_ITEM -> ContextCompat.getColor(context, R.color.green)
+        NEGATIVE_ITEM -> ContextCompat.getColor(context, R.color.red)
     }
-
-    override val data = item.data
+    
+    override val data = when(type) {
+        HEADER -> item.header!!.data
+        else -> item.item!!.data
+    }
 
     override fun initializeChart() {
         with(chart) {
@@ -32,7 +37,7 @@ class PortfolioChartConfig(private val context: Context,
             setDrawBorders(false)
         }
 
-        val dataSet = LineDataSet(item.data, "Data set test")
+        val dataSet = LineDataSet(data, "Data set test")
         with(dataSet) {
             mode = LineDataSet.Mode.CUBIC_BEZIER
             setDrawCircles(false)
@@ -40,10 +45,11 @@ class PortfolioChartConfig(private val context: Context,
             setDrawFilled(true)
             lineWidth = 0f
             color = backgroundColor
-            when {
-                isHeader -> fillDrawable = ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient)
-                item.positiveTrend -> fillColor = ContextCompat.getColor(context, R.color.greenDark)
-                else -> fillColor = ContextCompat.getColor(context, R.color.redDark)
+            when(type) {
+                HEADER -> fillDrawable = ContextCompat
+                        .getDrawable(context, R.drawable.chart_fill_gradient)
+                POSITIVE_ITEM -> fillColor = ContextCompat.getColor(context, R.color.greenDark)
+                NEGATIVE_ITEM -> fillColor = ContextCompat.getColor(context, R.color.redDark)
             }
         }
 
@@ -70,5 +76,17 @@ class PortfolioChartConfig(private val context: Context,
 
         val lineData = LineData(dataSet)
         chart.data = lineData
+    }
+    
+    enum class Type {
+        HEADER,
+        POSITIVE_ITEM,
+        NEGATIVE_ITEM
+    }
+    
+    private fun getItemType(): Type = when {
+        item.header != null -> HEADER
+        item.item != null && item.item.positiveTrend -> POSITIVE_ITEM
+        else -> NEGATIVE_ITEM
     }
 }

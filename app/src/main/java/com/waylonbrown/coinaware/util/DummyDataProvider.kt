@@ -15,29 +15,43 @@ import java.util.*
 
 class DummyPortfolioDataProvider {
     
-    data class PortfolioListData(val items: List<PortfolioListItem>, 
-                                 val errorState: Boolean = false) {
-        
-        companion object {
-            fun ofErrorState(): PortfolioListData = PortfolioListData(errorState = true,
-                    items = listOf())
-        }
-    }
+    data class PortfolioListData(val items: List<PortfolioListItem>)
 
-    data class PortfolioListItem(val data: List<Entry>, val positiveTrend: Boolean)
+    data class PortfolioListItem(val header: PortfolioListHeader? = null,
+                                 val item: PortfolioListCoinItem? = null)
+    
+    data class PortfolioListCoinItem(val data: List<Entry>, val positiveTrend: Boolean)
+    
+    data class PortfolioListHeader(var portfolioValue: Float,
+            val data: List<Entry>, 
+            val positiveTrend: Boolean)
 
     fun getDummyData(): PortfolioListData {
         val dataSet = mutableListOf<PortfolioListItem>()
-        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
-        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
-        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
-        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
-        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
-        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
-        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
-        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
-        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
-        dataSet.add(PortfolioListItem(getRandomChartData(), randTrend()))
+        dataSet.add(PortfolioListItem(header = PortfolioListHeader(13.14f,
+                getRandomChartData(),
+                randTrend())))
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+                randTrend())))
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+                randTrend())))
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+                randTrend())))
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+                randTrend())))
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+                randTrend())))
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+                randTrend())))
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+                randTrend())))
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+                randTrend())))
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+                randTrend())))
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+                randTrend())))
+                
         return PortfolioListData(dataSet)
     }
     

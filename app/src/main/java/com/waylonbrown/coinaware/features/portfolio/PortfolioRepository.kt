@@ -1,10 +1,10 @@
 package com.waylonbrown.coinaware.features.portfolio
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
+import com.waylonbrown.coinaware.io.Resource
 import com.waylonbrown.coinaware.io.model.CoinPrice
 import com.waylonbrown.coinaware.io.retrofit.CryptoCompareService
 import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
@@ -29,7 +29,7 @@ class PortfolioRepository {
     /**
      * Return cached data, or fetch new data if nothing cached
      */
-    fun getCachedBTCtoUSDPrice(): LiveData<PortfolioListData> {
+    fun getBTCtoUSDPrice(): MutableLiveData<Resource<PortfolioListData>> {
         
         // TODO: all DAO interaction needs to be on background thread
         val cachedData = dao.getBTCtoUSDPrice()
@@ -38,14 +38,14 @@ class PortfolioRepository {
         }
         
         // TODO: want this to update the DAO then get from the DAO here after fetched
-        return getFreshBTCtoUSDPrice()
+        return fetchNewBTCtoUSDPrice()
     }
 
     /**
      * Fetch new data
      */
-    fun getFreshBTCtoUSDPrice(): LiveData<PortfolioListData> {
-        val returnData = MutableLiveData<PortfolioListData>()
+    fun fetchNewBTCtoUSDPrice(): MutableLiveData<Resource<PortfolioListData>> {
+        val returnData = MutableLiveData<Resource<PortfolioListData>>()
 
         val client = OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -66,12 +66,13 @@ class PortfolioRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object: SingleObserver<CoinPrice> {
                     override fun onSuccess(value: CoinPrice) {
-                        returnData.value = DummyPortfolioDataProvider().getDummyData()
+                        returnData.value = 
+                                Resource.success(DummyPortfolioDataProvider().getDummyData())
                         logger.info { "Value returned: $value"}
                     }
 
                     override fun onError(e: Throwable?) {
-                        returnData.value = PortfolioListData.ofErrorState()
+                        returnData.value = Resource.error("Couldn't get result")
                         logger.error(e!!) { "Couldn't get result" }
                     }
 
@@ -79,7 +80,7 @@ class PortfolioRepository {
                     }
 
                 })
-
+        
         return returnData
     }
 }
