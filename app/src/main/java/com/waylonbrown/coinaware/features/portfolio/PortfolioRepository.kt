@@ -24,7 +24,7 @@ private val logger = KotlinLogging.logger {}
 class PortfolioRepository {
 
     private var cryptoService: CryptoCompareService? = null
-    private val portfolioDao = PortfolioDao()
+    private val dao = PortfolioDao()
 
     /**
      * Return cached data, or fetch new data if nothing cached
@@ -32,7 +32,7 @@ class PortfolioRepository {
     fun getCachedBTCtoUSDPrice(): LiveData<PortfolioListData> {
         
         // TODO: all DAO interaction needs to be on background thread
-        val cachedData = portfolioDao.getBTCtoUSDPrice()
+        val cachedData = dao.getBTCtoUSDPrice()
         if (cachedData != null) {
             return cachedData
         }

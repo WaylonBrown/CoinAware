@@ -7,16 +7,17 @@ import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
 class PortfolioViewModel : ViewModel() {
     
     var listData: LiveData<DummyPortfolioDataProvider.PortfolioListData>? = null
+    private val repository = PortfolioRepository()
     
     fun initialize() {
         // Important since this is called multiple times in the lifecycle
         if (listData != null) return
         
-        listData = PortfolioRepository().getCachedBTCtoUSDPrice()
+        listData = repository.getCachedBTCtoUSDPrice()
     }
     
     fun fetchNewData() {
-        listData = PortfolioRepository().getFreshBTCtoUSDPrice()
+        listData = repository.getFreshBTCtoUSDPrice()
     }
 
 }
