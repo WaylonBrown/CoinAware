@@ -2,10 +2,7 @@ package com.waylonbrown.coinaware.features.portfolio
 
 import com.waylonbrown.coinaware.io.retrofit.CryptoCompareService
 import io.reactivex.Single
-import mu.KotlinLogging
 import javax.inject.Inject
-
-private val logger = KotlinLogging.logger {}
 
 class PortfolioRepository @Inject constructor(private val dao: PortfolioDao,
                                               private val cryptoService: CryptoCompareService) {

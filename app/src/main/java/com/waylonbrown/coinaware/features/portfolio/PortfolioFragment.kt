@@ -11,9 +11,7 @@ import com.waylonbrown.coinaware.features.portfolio.PortfolioAdapter.PortfolioHe
 import com.waylonbrown.coinaware.features.portfolio.PortfolioAdapter.PortfolioItemViewHolder.ListItemClickedListener
 import com.waylonbrown.coinaware.io.Resource
 import kotlinx.android.synthetic.main.page_recyclerview.*
-import mu.KotlinLogging
-
-private val logger = KotlinLogging.logger {}
+import timber.log.Timber
 
 class PortfolioFragment : BaseRecyclerViewFragment(), 
         ListHeaderClickedListener, 
@@ -42,13 +40,12 @@ class PortfolioFragment : BaseRecyclerViewFragment(),
     /**
      * Underlying data has change, have it reflect in the UI
      */
-    // TODO: change to Resource<PortfolioListData>
     override fun onChanged(data: Resource<PortfolioListData>?) {
         swipeRefreshLayout.isRefreshing = false
         
         if (data?.data != null && data.status == Resource.Status.SUCCESS) {
             portfolioAdapter.updateItems(data.data)
-            logger.info { "Updated items in portfolio list" }
+            Timber.i("Updated items in portfolio list")
             return
         }
 

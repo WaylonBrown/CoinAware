@@ -9,10 +9,8 @@ import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import mu.KotlinLogging
+import timber.log.Timber
 import javax.inject.Inject
-
-private val logger = KotlinLogging.logger {}
 
 class PortfolioViewModel : ViewModel() {
     
@@ -32,12 +30,12 @@ class PortfolioViewModel : ViewModel() {
             .subscribeWith(object: SingleObserver<PortfolioListData> {
                 override fun onSuccess(value: PortfolioListData) {
                     listData.value = Resource.success(value)
-                    logger.info { "Value returned: $value"}
+                    Timber.i("Value returned: $value")
                 }
 
                 override fun onError(e: Throwable?) {
                     listData.value = Resource.error("Couldn't get result")
-                    logger.error(e!!) { "Couldn't get result" }
+                    Timber.e(e, "Couldn't get result")
                 }
 
                 override fun onSubscribe(d: Disposable?) {
@@ -53,13 +51,12 @@ class PortfolioViewModel : ViewModel() {
             .subscribeWith(object: SingleObserver<PortfolioListData> {
                 override fun onSuccess(value: PortfolioListData) {
                     listData.value = Resource.success(value)
-                    logger.info { "Value returned: $value"}
+                    Timber.i("Value returned: $value")
                 }
 
                 override fun onError(e: Throwable?) {
                     listData.value = Resource.error("Couldn't get result")
-                    // TODO: see why this error isn't logged if removing the subscribeOn
-                    logger.error { "Couldn't get result" }
+                    Timber.e(e, "Couldn't get result")
                 }
 
                 override fun onSubscribe(d: Disposable?) {

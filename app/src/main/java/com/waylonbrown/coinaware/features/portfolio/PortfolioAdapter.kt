@@ -8,9 +8,7 @@ import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
 import com.waylonbrown.coinaware.R
 import com.waylonbrown.coinaware.util.FloatToCurrencyFormatter
-import mu.KotlinLogging
-
-private val logger = KotlinLogging.logger {}
+import timber.log.Timber
 
 class PortfolioAdapter(private val layoutInflater: LayoutInflater,
                        private val headerClickedListener: PortfolioHeaderViewHolder.ListHeaderClickedListener,
@@ -36,7 +34,7 @@ class PortfolioAdapter(private val layoutInflater: LayoutInflater,
             header.portfolioValue = data
             notifyItemChanged(0)
         } else {
-            logger.error { "First list item wasn't the header, couldn't update value" }
+            Timber.e("First list item wasn't the header, couldn't update value")
         }
     }
 
