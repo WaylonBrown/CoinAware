@@ -14,15 +14,11 @@ class PortfolioViewModel : ViewModel() {
     private val repository = PortfolioRepository()
     
     fun getDataFromCache() {
-        // TODO: change back to getting actual price
-//        listData = repository.getBTCtoUSDPrice()
-        listData.value = Resource.success(124.13f)
+        repository.getBTCtoUSDPrice(listData)
     }
     
     fun fetchNewData() {
-        listData.value = Resource.success(94.32f)
-        // TODO: change back to getting actual price
-//        listData = repository.fetchNewBTCtoUSDPrice()
+        repository.fetchNewBTCtoUSDPrice(listData)
     }
     
     // Expose LiveData rather than MutableLiveData

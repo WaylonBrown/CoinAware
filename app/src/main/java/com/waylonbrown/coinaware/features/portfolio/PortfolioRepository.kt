@@ -7,8 +7,6 @@ import com.squareup.moshi.Moshi
 import com.waylonbrown.coinaware.io.Resource
 import com.waylonbrown.coinaware.io.model.CoinPrice
 import com.waylonbrown.coinaware.io.retrofit.CryptoCompareService
-import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
-import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListData
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -29,24 +27,23 @@ class PortfolioRepository {
     /**
      * Return cached data, or fetch new data if nothing cached
      */
-    fun getBTCtoUSDPrice(): MutableLiveData<Resource<PortfolioListData>> {
+    fun getBTCtoUSDPrice(listData: MutableLiveData<Resource<Float>>) {
         
         // TODO: all DAO interaction needs to be on background thread
         val cachedData = dao.getBTCtoUSDPrice()
         if (cachedData != null) {
-            return cachedData
+            listData.value = cachedData
+            return
         }
         
         // TODO: want this to update the DAO then get from the DAO here after fetched
-        return fetchNewBTCtoUSDPrice()
+        fetchNewBTCtoUSDPrice(listData)
     }
 
     /**
      * Fetch new data
      */
-    fun fetchNewBTCtoUSDPrice(): MutableLiveData<Resource<PortfolioListData>> {
-        val returnData = MutableLiveData<Resource<PortfolioListData>>()
-
+    fun fetchNewBTCtoUSDPrice(listData: MutableLiveData<Resource<Float>>) {
         val client = OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
@@ -66,13 +63,14 @@ class PortfolioRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object: SingleObserver<CoinPrice> {
                     override fun onSuccess(value: CoinPrice) {
-                        returnData.value = 
-                                Resource.success(DummyPortfolioDataProvider().getDummyData())
+//                        returnData.value = 
+//                                Resource.success(DummyPortfolioDataProvider().getDummyData())
+                        listData.value = Resource.success(94.32f)
                         logger.info { "Value returned: $value"}
                     }
 
                     override fun onError(e: Throwable?) {
-                        returnData.value = Resource.error("Couldn't get result")
+                        listData.value = Resource.error("Couldn't get result")
                         logger.error(e!!) { "Couldn't get result" }
                     }
 
@@ -80,7 +78,5 @@ class PortfolioRepository {
                     }
 
                 })
-        
-        return returnData
     }
 }
