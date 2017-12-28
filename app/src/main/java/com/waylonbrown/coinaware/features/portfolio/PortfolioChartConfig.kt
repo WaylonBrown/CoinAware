@@ -9,7 +9,6 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.waylonbrown.coinaware.R
 import com.waylonbrown.coinaware.base.ChartConfig
 import com.waylonbrown.coinaware.features.portfolio.PortfolioChartConfig.Type.*
-import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
 
 class PortfolioChartConfig(private val context: Context,
                            override val chart: LineChart,

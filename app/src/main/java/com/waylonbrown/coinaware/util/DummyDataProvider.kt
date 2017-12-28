@@ -11,45 +11,30 @@ import com.waylonbrown.coinaware.features.insights.InsightsHeader
 import com.waylonbrown.coinaware.features.insights.InsightsListItem
 import com.waylonbrown.coinaware.features.insights.InsightsPieChart
 import com.waylonbrown.coinaware.features.insights.InsightsRelativeGraph
+import com.waylonbrown.coinaware.features.portfolio.PortfolioListCoinItem
+import com.waylonbrown.coinaware.features.portfolio.PortfolioListData
+import com.waylonbrown.coinaware.features.portfolio.PortfolioListHeader
+import com.waylonbrown.coinaware.features.portfolio.PortfolioListItem
 import java.util.*
 
 class DummyPortfolioDataProvider {
-    
-    data class PortfolioListData(val items: List<PortfolioListItem>)
-
-    data class PortfolioListItem(val header: PortfolioListHeader? = null,
-                                 val item: PortfolioListCoinItem? = null)
-    
-    data class PortfolioListCoinItem(val data: List<Entry>, val positiveTrend: Boolean)
-    
-    data class PortfolioListHeader(var portfolioValue: Float,
-            val data: List<Entry>, 
-            val positiveTrend: Boolean)
 
     fun getDummyData(): PortfolioListData {
         val dataSet = mutableListOf<PortfolioListItem>()
         dataSet.add(PortfolioListItem(header = PortfolioListHeader(13.14f,
                 getRandomChartData(),
                 randTrend())))
-        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem("BTC",
+                "Bitcoin",
+                getRandomChartData(),
                 randTrend())))
-        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem("ETH",
+                "Ethereum",
+                getRandomChartData(),
                 randTrend())))
-        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
-                randTrend())))
-        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
-                randTrend())))
-        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
-                randTrend())))
-        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
-                randTrend())))
-        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
-                randTrend())))
-        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
-                randTrend())))
-        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
-                randTrend())))
-        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem(getRandomChartData(),
+        dataSet.add(PortfolioListItem(item = PortfolioListCoinItem("LTC",
+                "Litecoin",
+                getRandomChartData(),
                 randTrend())))
                 
         return PortfolioListData(dataSet)

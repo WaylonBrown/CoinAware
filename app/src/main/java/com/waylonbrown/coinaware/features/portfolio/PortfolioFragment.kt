@@ -10,8 +10,6 @@ import com.waylonbrown.coinaware.base.BaseRecyclerViewFragment
 import com.waylonbrown.coinaware.features.portfolio.PortfolioAdapter.PortfolioHeaderViewHolder.ListHeaderClickedListener
 import com.waylonbrown.coinaware.features.portfolio.PortfolioAdapter.PortfolioItemViewHolder.ListItemClickedListener
 import com.waylonbrown.coinaware.io.Resource
-import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
-import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider.PortfolioListItem
 import kotlinx.android.synthetic.main.page_recyclerview.*
 import mu.KotlinLogging
 
@@ -20,7 +18,7 @@ private val logger = KotlinLogging.logger {}
 class PortfolioFragment : BaseRecyclerViewFragment(), 
         ListHeaderClickedListener, 
         ListItemClickedListener,
-        Observer<Resource<Float>>, 
+        Observer<Resource<PortfolioListData>>, 
         SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var viewModel: PortfolioViewModel
@@ -34,9 +32,6 @@ class PortfolioFragment : BaseRecyclerViewFragment(),
         portfolioAdapter = PortfolioAdapter(layoutInflater, this, this)
         recyclerView.adapter = portfolioAdapter
         
-        //TODO: remove
-        portfolioAdapter.updateItems(DummyPortfolioDataProvider().getDummyData())
-        
         viewModel = ViewModelProviders.of(this).get(PortfolioViewModel::class.java)
         viewModel.getLiveData().observe(this, this)
         viewModel.getDataFromCache()
@@ -48,18 +43,16 @@ class PortfolioFragment : BaseRecyclerViewFragment(),
      * Underlying data has change, have it reflect in the UI
      */
     // TODO: change to Resource<PortfolioListData>
-    override fun onChanged(data: Resource<Float>?) {
+    override fun onChanged(data: Resource<PortfolioListData>?) {
         swipeRefreshLayout.isRefreshing = false
         
         if (data?.data != null && data.status == Resource.Status.SUCCESS) {
-            // TODO: this normally updates all items
-//            portfolioAdapter.updateItems(data.data)
-            portfolioAdapter.updatePortfolioValue(data.data)
+            portfolioAdapter.updateItems(data.data)
             logger.info { "Updated items in portfolio list" }
             return
         }
 
-        if (data?.status == Resource.Status.ERROR) {
+        if (data == null || data.status == Resource.Status.ERROR) {
             Toast.makeText(this@PortfolioFragment.activity, "Couldn't get latest BTC price",
                     Toast.LENGTH_SHORT).show()
             return

@@ -1,13 +1,7 @@
 package com.waylonbrown.coinaware.features.portfolio
 
-import android.arch.lifecycle.MutableLiveData
-import com.waylonbrown.coinaware.io.Resource
-import com.waylonbrown.coinaware.io.model.CoinPrice
 import com.waylonbrown.coinaware.io.retrofit.CryptoCompareService
-import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.Single
 import mu.KotlinLogging
 import javax.inject.Inject
 
@@ -19,42 +13,22 @@ class PortfolioRepository @Inject constructor(private val dao: PortfolioDao,
     /**
      * Return cached data, or fetch new data if nothing cached
      */
-    fun getBTCtoUSDPrice(listData: MutableLiveData<Resource<Float>>) {
+    fun getBTCtoUSDPrice(): Single<PortfolioListData> {
         
-        // TODO: all DAO interaction needs to be on background thread
         val cachedData = dao.getBTCtoUSDPrice()
         if (cachedData != null) {
-            listData.value = cachedData
-            return
+            return Single.just(cachedData)
         }
         
         // TODO: want this to update the DAO then get from the DAO here after fetched
-        fetchNewBTCtoUSDPrice(listData)
+        return fetchNewBTCtoUSDPrice()
     }
 
     /**
      * Fetch new data
      */
-    fun fetchNewBTCtoUSDPrice(listData: MutableLiveData<Resource<Float>>) {
-        cryptoService.getCurrencyToCurrencyPrice(from = "BTC", to = "USD")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object: SingleObserver<CoinPrice> {
-                    override fun onSuccess(value: CoinPrice) {
-//                        returnData.value = 
-//                                Resource.success(DummyPortfolioDataProvider().getDummyData())
-                        listData.value = Resource.success(94.32f)
-                        logger.info { "Value returned: $value"}
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        listData.value = Resource.error("Couldn't get result")
-                        logger.error(e!!) { "Couldn't get result" }
-                    }
-
-                    override fun onSubscribe(d: Disposable?) {
-                    }
-
-                })
+    fun fetchNewBTCtoUSDPrice(): Single<PortfolioListData> {
+        return cryptoService.getCurrencyToCurrencyPrice(from = "BTC", to = "USD")
+                .map { coinPrice -> dao.getBTCtoUSDPrice() }
     }
 }

@@ -1,11 +1,13 @@
 package com.waylonbrown.coinaware.features.portfolio
 
-import com.waylonbrown.coinaware.io.Resource
+import com.waylonbrown.coinaware.util.DummyPortfolioDataProvider
 import javax.inject.Inject
 
 class PortfolioDao @Inject constructor(){
     
-    fun getBTCtoUSDPrice(): Resource<Float>? {
-        return Resource.success(124.13f)
+    fun getBTCtoUSDPrice(): PortfolioListData? {
+        // TODO: figure out why this fails
+//        check(!isOnMainThread()) { "Can't call from main thread" }
+        return DummyPortfolioDataProvider().getDummyData()
     }
 }
